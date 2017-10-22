@@ -12,7 +12,7 @@ let  emailLengthChecker = (email) => {
     if(!email){
         return false;
     }else{
-        if(email.length < 5 || email.length > 30){
+        if(email.length < 10 || email.length > 50){
             return false;
         }else{
             return true;
@@ -30,7 +30,7 @@ let validEmailCheker = (email)  =>  {
 let emailValidator = [
     {
         validator: emailLengthChecker,
-        message: 'Email must be at least 5 characters long but no longer than 30!'
+        message: 'Email must be at least 10 characters long but no longer than 50!'
     },
     {
         validator: validEmailCheker,
@@ -43,7 +43,7 @@ let  usernameLengthChecker = (username) => {
     if(!username){
         return false;
     }else{
-        if(username.length < 8 || username.length > 20){
+        if(username.length < 5 || username.length > 20){
             return false;
         }else{
             return true;
@@ -61,7 +61,7 @@ let validUsernameChecker = (username) =>  {
 let usernameValidator = [
     {
         validator: usernameLengthChecker,
-        message: 'username must be at least 8 characters long but no longer than 20!'
+        message: 'username must be at least 5 characters long but no longer than 20!'
     },
     {
         validator: validUsernameChecker,
