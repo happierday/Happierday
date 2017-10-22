@@ -68,9 +68,13 @@ export class RegisterComponent implements OnInit {
 
     matchPassword(password,confirmPassword){
         return  (group: FormGroup) =>{
-            if(group.controls[password].value  === group.controls[confirmPassword].value){
-                return null;
-            }else{
+            if(group.controls[password].value && group.controls[password].value){
+                if(group.controls[password].value  === group.controls[confirmPassword].value){
+                    return null;
+                }else{
+                    return {'matchPassword': true};
+                }
+            }else {
                 return {'matchPassword': true};
             }
         }
