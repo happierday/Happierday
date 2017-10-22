@@ -1,46 +1,47 @@
 
 <h1>Sign up</h1>
 <form [formGroup] = 'userForm' novalidate (submit) = "onRegisterSubmit()">
-  <div class="form-group">
-    <label for="username" >Username</label>
-    <input type="text" class="form-control" id="username" required placeholder="username" formControlName="username">
-    <div *ngIf="userForm.get('username').invalid && (userForm.get('username').dirty)" class="alert alert-danger">
-      <div *ngIf="userForm.get('username').errors.required">
-        Userame is required.
-      </div>
-      <div *ngIf="userForm.get('username').errors.minlength">
-          Userame must have a least 8 characters.
-      </div>
+    <div class="form-group">
+        <label for="username" >Username</label>
+        <input type="text"  id="username" class="form-control"  placeholder="username" formControlName="username"
+        [ngClass]="{'is-invalid':userForm.controls.username.errors&&userForm.controls.username.dirty,'is-valid':!userForm.controls.username.errors}">
+        <div *ngIf="userForm.controls.username.invalid && userForm.controls.username.dirty" class="alert alert-danger">
+            <div *ngIf="userForm.controls.username.errors.required">
+                Userame is required.
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="text" class="form-control" id="email" required placeholder="email" formControlName="email">
-    <div *ngIf="userForm.get('email').invalid && (userForm.get('email').dirty)" class="alert alert-danger">
-        <div *ngIf="userForm.get('email').errors.required">
-            Email is required.
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email"  placeholder="email" formControlName="email"
+        [ngClass]="{'is-invalid':userForm.controls.email.errors&&userForm.controls.email.dirty,'is-valid':!userForm.controls.email.errors}">
+        <div *ngIf="userForm.controls.email.invalid && userForm.controls.email.dirty" class="alert alert-danger">
+            <div *ngIf="userForm.controls.email.errors.required">
+                Email is required.
+            </div>
         </div>
-      </div>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="text" class="form-control" id="password" required required placeholder="password" formControlName="password">
-    <div *ngIf="userForm.get('password').invalid && (userForm.get('password').dirty)" class="alert alert-danger">
-        <div *ngIf="userForm.get('password').errors.required">
-            Password is required.
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" id="password"   placeholder="password" formControlName="password"
+        [ngClass]="{'is-invalid':userForm.controls.password.errors&&userForm.controls.password.dirty,'is-valid':!userForm.controls.password.errors}">
+        <div *ngIf="userForm.controls.password.invalid && userForm.controls.password.dirty" class="alert alert-danger">
+            <div *ngIf="userForm.controls.password.errors.required">
+                Password is required.
+            </div>
         </div>
-      </div>
-  </div>
-  <div class="form-group">
-    <label for="confirmPassword">Confirm Password</label>
-    <input type="text" class="form-control" id="confirmPassword" required required placeholder="confirmPassword" formControlName="confirmPassword">
-    <div *ngIf="userForm.get('confirmPassword').invalid && (userForm.get('confirmPassword').dirty)" class="alert alert-danger">
-        <div *ngIf="userForm.get('confirmPassword').errors.required">
-            Confirm Password is required.
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="text" class="form-control" id="confirmPassword"   placeholder="confirmPassword" formControlName="confirmPassword"
+        [ngClass]="{'is-invalid':userForm.controls.confirmPassword.errors&&userForm.controls.confirmPassword.dirty,'is-valid':!userForm.controls.confirmPassword.errors}">
+        <div *ngIf="userForm.controls.confirmPassword.invalid && userForm.controls.confirmPassword.dirty" class="alert alert-danger">
+            <div *ngIf="userForm.controls.confirmPassword.errors.required">
+                Confirm Password is required.
+            </div>
         </div>
-      </div>
-  </div>
-  <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
 </form>
 
 

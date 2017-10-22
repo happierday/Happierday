@@ -6,29 +6,30 @@ import { FormControl, FormGroup, FormBuilder , Validators} from '@angular/forms'
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  userForm: FormGroup;
+    userForm: FormGroup;
   
-  constructor(
-    private  formBuilder: FormBuilder
-  ) { 
-    this.createForm();
-  }
+    constructor(
+        private  formBuilder: FormBuilder
+    ) { 
+        this.createForm();
 
-  createForm(){
-    this.userForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    })
-  }
+    }
 
-  onRegisterSubmit(){
-    console.log(this.userForm);
-  }
+    createForm(){
+        this.userForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            email: ['', Validators.required],
+            password: ['', Validators.required],
+            confirmPassword: ['', Validators.required]
+        })
+    }
 
-  ngOnInit() {
+    onRegisterSubmit(){
+        console.log(this.userForm);
+    }
 
-  }
+    ngOnInit() {
+
+    }
 
 }
