@@ -40,12 +40,47 @@ router.post('/',(req,res)=>{
                             }
                         }
                     }
-                    res.json({success: true, message: 'Saved to database! '});
+                    res.json({success: true, message: 'Account Registered! '});
                 })
             }
         }
     }
 })
 
+router.get('/checkemail/:email',(req,res) => {
+    if(!req.params.email){
+        res.json({success: false, message: 'Email is not provided'})
+    }else{
+        User.findOne({email: req.params.email},(err,user) =>{
+            if(err){
+                res.json({success: false, message: err})
+            }else{
+                if(user){
+                    res.json({success: false, message: 'Email already Exists'});
+                }else{
+                    res.json({success: true, message:'Email is avaliable!'});
+                }
+            }
+        })
+    }
+})
+
+router.get('/checkusername/:username',(req,res) => {
+    if(!req.params.username){
+        res.json({success: false, message: 'Username is not provided'})
+    }else{
+        User.findOne({username: req.params.username},(err,user) =>{
+            if(err){
+                res.json({success: false, message: err})
+            }else{
+                if(user){
+                    res.json({success: false, message: 'Username already Exists'});
+                }else{
+                    res.json({success: true, message:'Username is avaliable!'});
+                }
+            }
+        })
+    }
+})
 
 module.exports = router;

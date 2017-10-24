@@ -1,18 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder , Validators} from '@angular/forms';
+import { SignUpAuthService } from '../../services/sign-up-auth.service';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent implements OnInit {
     userForm: FormGroup;
-  
+    signedUp;
+    registerResponse;
+    message;
+    messageClass;
+    emailResponse;
+    emailMessage;
+    emailStatus;
+    usernameResponse;
+    usernameMessage;
+    usernameStatus;
     constructor(
-        private  formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private signUpAuthService: SignUpAuthService,
+        private router: Router
     ) { 
+        this.signedUp = false;
         this.createForm();
-
     }
 
     createForm(){
@@ -39,6 +53,22 @@ export class RegisterComponent implements OnInit {
         },{validator:this.matchPassword('password','confirmPassword')});
     }
 
+    //disable/enable forms
+    disableForm(){
+        this.userForm.controls['username'].disable();
+        this.userForm.controls['email'].disable();
+        this.userForm.controls['password'].disable();
+        this.userForm.controls['confirmPassword'].disable();
+    }
+
+    enableForm(){
+        this.userForm.controls['username'].enable();
+        this.userForm.controls['email'].enable();
+        this.userForm.controls['password'].enable();
+        this.userForm.controls['confirmPassword'].enable();
+    }
+
+    //validate user inputs
     validateEmail(controls){
         const regExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         if(regExp.test(controls.value)){
@@ -81,8 +111,44 @@ export class RegisterComponent implements OnInit {
     }
 
     onRegisterSubmit(){
-        console.log("form submited!");
+        this.signedUp = true;
+        this.disableForm();
+        const user = {
+            username: this.userForm.get('username').value,
+            email: this.userForm.get('email').value,
+            password: this.userForm.get('password').value
+        }
+        this.signUpAuthService.registerUser(user).subscribe(res => {
+            this.registerResponse = JSON.parse(JSON.stringify(res));
+            if(this.registerResponse.success){
+                this.messageClass = 'alert alert-success';
+            }else{
+                this.messageClass = 'alert alert-danger';
+                this.signedUp = false;
+                this.enableForm();
+            }
+            this.message = this.registerResponse.message;
+            setTimeout(()=>{
+                this.router.navigate(['/login']);
+            },1000)
+        });
     }
+
+    // checkEmail(){
+    //     this.signUpAuthService.checkEmail(this.userForm.get('email').value).subscribe(res =>{
+    //         this.emailResponse = JSON.parse(JSON.stringify(res));
+    //         this.emailStatus = this.emailResponse.success;
+    //         this.emailMessage = this.emailMessage.message;
+    //     })
+    // }
+
+    // checkUsername(){
+    //     this.signUpAuthService.checkUsername(this.userForm.get('username').value).subscribe(res =>{
+    //         this.usernameResponse = JSON.parse(JSON.stringify(res));
+    //         this.usernameStatus = this.usernameResponse.success;
+    //         this.usernameMessage = this.usernameResponse.message;
+    //     })
+    // }
 
     ngOnInit() {
 

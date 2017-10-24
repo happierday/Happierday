@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const confidDB = require('./config/db');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 
 //set up db connection
 mongoose.Promise = global.Promise;
@@ -15,6 +17,10 @@ mongoose.connect(confidDB.url,(err)=>{
 })
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
 
 //add midware bodyParser
 app.use(bodyParser.json());

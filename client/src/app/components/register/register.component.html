@@ -1,11 +1,17 @@
+<h1 class= "page-header">Sign up</h1>
 
-<h1>Sign up</h1>
-<form [formGroup] = 'userForm' novalidate (submit) = "onRegisterSubmit()">
+<div class = "row  show-hide-message">
+    <div [ngClass] ="messageClass">
+        {{ message }}
+    </div>
+</div>
+
+<form [formGroup] = "userForm" (submit) = "onRegisterSubmit()">
     <div class="form-group">
         <label for="username" >Username</label>
         <input type="text"  id="username" class="form-control"  placeholder="username" formControlName="username"
         [ngClass]="{'is-invalid':userForm.controls.username.errors&&userForm.controls.username.dirty,'is-valid':!userForm.controls.username.errors}">
-        <div *ngIf="userForm.controls.username.errors && userForm.controls.username.dirty" class="alert alert-danger">
+        <div *ngIf="(userForm.controls.username.errors && userForm.controls.username.dirty)" class="alert alert-danger">
             <div *ngIf="userForm.controls.username.errors?.required">
                 Userame is required.
             </div>
@@ -41,7 +47,7 @@
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="text" class="form-control" id="password"   placeholder="password" formControlName="password"
+        <input type="password" class="form-control" id="password"   placeholder="password" formControlName="password"
         [ngClass]="{'is-invalid':userForm.controls.password.errors&&userForm.controls.password.dirty,'is-valid':!userForm.controls.password.errors}">
         <div *ngIf="userForm.controls.password.errors && userForm.controls.password.dirty" class="alert alert-danger">
             <div *ngIf="userForm.controls.password.errors?.required">
@@ -57,7 +63,7 @@
     </div>
     <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="text" class="form-control" id="confirmPassword"  placeholder="confirmPassword" formControlName="confirmPassword"
+        <input type="password" class="form-control" id="confirmPassword"  placeholder="confirmPassword" formControlName="confirmPassword"
         [ngClass]="{'is-invalid':(userForm.controls.confirmPassword.errors || userForm.errors) &&userForm.controls.confirmPassword.dirty,'is-valid':!userForm.controls.confirmPassword.errors && !userForm.errors}">
         <div *ngIf="userForm.controls.confirmPassword.dirty && userForm.errors" class="alert alert-danger">
             <div *ngIf="userForm.controls.confirmPassword.errors?.required">
@@ -68,9 +74,8 @@
             </div>
         </div>
     </div>
-    <button [disabled] = "!userForm.valid" type="submit" class="btn btn-success">Submit</button>
+    <button [disabled] = "!userForm.valid || signedUp" type="submit" class="btn btn-success">Submit</button>
 </form>
-<p>confirm  password {{userForm.controls.confirmPassword.errors?.required | json}}</p>
-<p>userform {{userForm.errors | json}}</p>
-
+<p>username: {{usernameStatus}}</p>
+<p>email: {{emailStatus}}</p>
 
