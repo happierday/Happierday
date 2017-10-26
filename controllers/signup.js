@@ -1,6 +1,7 @@
 const User = require('../models/userProfile');
 const express = require('express');
-
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 const router = express.Router();
 
 router.post('/',(req,res)=>{
@@ -40,7 +41,8 @@ router.post('/',(req,res)=>{
                             }
                         }
                     }
-                    res.json({success: true, message: 'Account Registered! '});
+                    const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });
+                    res.json({success: true, message: 'Account Registered! ',token:token});
                 })
             }
         }

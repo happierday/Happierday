@@ -1,14 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const confidDB = require('./config/db');
+const config = require('./config/config');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-
 //set up db connection
 mongoose.Promise = global.Promise;
-mongoose.connect(confidDB.url,(err)=>{
+mongoose.connect(config.url,(err)=>{
     if(err){
         console.log('cant connect' + err);
     }else{
@@ -28,9 +27,14 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 //require controllers
 const signup = require('./controllers/signup');
+const login = require('./controllers/login');
+const profile = require('./controllers/profile');
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/signup',signup);
+app.use('/login',login);
+app.use('/profile',profile);
+
 
 //bound with angular
 app.get('*',(req,res)=>{

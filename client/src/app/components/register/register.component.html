@@ -1,81 +1,79 @@
-<h1 class= "page-header">Sign up</h1>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class= "page-header">Sign up</h1>
 
-<div class = "row  show-hide-message">
-    <div [ngClass] ="messageClass">
-        {{ message }}
+        <div class = "row  show-hide-message">
+            <div [ngClass] ="messageClass">
+                {{ message }}
+            </div>
+        </div>
+
+        <form [formGroup] = "userForm" (submit) = "onRegisterSubmit()">
+            <div class="form-group" [ngClass]="{'has-error':userForm.controls.username.errors&&userForm.controls.username.dirty,'has-success':!userForm.controls.username.errors}">
+                <label for="username" >Username</label>
+                <input type="text"  id="username" class="form-control"  placeholder="username" formControlName="username">
+                <div *ngIf="(userForm.controls.username.errors && userForm.controls.username.dirty)" class="alert alert-danger">
+                    <div *ngIf="userForm.controls.username.errors?.required">
+                        Userame is required.
+                    </div>
+                    <div *ngIf="userForm.controls.username.errors?.minlength && !userForm.controls.username.errors?.required">
+                        Userame must have at least 5 characters.
+                    </div>
+                    <div *ngIf="userForm.controls.username.errors?.maxlength && !userForm.controls.username.errors?.required">
+                        Userame must be no longer than 20 characters.
+                    </div>
+                    <div *ngIf="userForm.controls.username.errors?.validateUsername && !userForm.controls.username.errors?.required">
+                        Username should not contain any special characters.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-error':userForm.controls.email.errors&&userForm.controls.email.dirty,'has-success':!userForm.controls.email.errors}">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email"  placeholder="email" formControlName="email">
+                <div *ngIf="userForm.controls.email.errors && userForm.controls.email.dirty" class="alert alert-danger">
+                    <div *ngIf="userForm.controls.email.errors?.required">
+                        Email is required.
+                    </div>
+                    <div *ngIf="userForm.controls.email.errors?.minlength && !userForm.controls.email.errors?.required">
+                        Email must have at least 10 characters.
+                    </div>
+                    <div *ngIf="userForm.controls.email.errors?.maxlength && !userForm.controls.email.errors?.required" >
+                        Email is too long.
+                    </div>
+                    <div *ngIf="userForm.controls.email.errors?.validateEmail && !userForm.controls.email.errors?.required">
+                        Must be a valid email.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-error':userForm.controls.password.errors&&userForm.controls.password.dirty,'has-success':!userForm.controls.password.errors}">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password"   placeholder="password" formControlName="password">
+                <div *ngIf="userForm.controls.password.errors && userForm.controls.password.dirty" class="alert alert-danger">
+                    <div *ngIf="userForm.controls.password.errors?.required">
+                        Password is required.
+                    </div>
+                    <div *ngIf="userForm.controls.password.errors?.minlength && !userForm.controls.password.errors?.required">
+                        Password must have at least 8 characters.
+                    </div>
+                    <div *ngIf="userForm.controls.password.errors?.validatePassword && !userForm.controls.password.errors?.required">
+                        Password should contain at least one lower,upper case and number.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" [ngClass]="{'has-error':userForm.controls.confirmPassword.errors&&userForm.controls.confirmPassword.dirty,'has-success':!userForm.controls.confirmPassword.errors}">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword"  placeholder="confirmPassword" formControlName="confirmPassword"
+                [ngClass]="{'is-invalid':(userForm.controls.confirmPassword.errors || userForm.errors) &&userForm.controls.confirmPassword.dirty,'is-valid':!userForm.controls.confirmPassword.errors && !userForm.errors}">
+                <div *ngIf="userForm.controls.confirmPassword.dirty && userForm.errors" class="alert alert-danger">
+                    <div *ngIf="userForm.controls.confirmPassword.errors?.required">
+                        Confirm Password is required.
+                    </div>
+                    <div *ngIf="!userForm.controls.confirmPassword.errors?.required && userForm.errors?.matchPassword">
+                        Password doesn't match.
+                    </div>
+                </div>
+            </div>
+            <button [disabled] = "!userForm.valid || signedUp" type="submit" class="btn btn-success">Submit</button>
+        </form>
     </div>
 </div>
-
-<form [formGroup] = "userForm" (submit) = "onRegisterSubmit()">
-    <div class="form-group">
-        <label for="username" >Username</label>
-        <input type="text"  id="username" class="form-control"  placeholder="username" formControlName="username"
-        [ngClass]="{'is-invalid':userForm.controls.username.errors&&userForm.controls.username.dirty,'is-valid':!userForm.controls.username.errors}">
-        <div *ngIf="(userForm.controls.username.errors && userForm.controls.username.dirty)" class="alert alert-danger">
-            <div *ngIf="userForm.controls.username.errors?.required">
-                Userame is required.
-            </div>
-            <div *ngIf="userForm.controls.username.errors?.minlength && !userForm.controls.username.errors?.required">
-                Userame must have at least 5 characters.
-            </div>
-            <div *ngIf="userForm.controls.username.errors?.maxlength && !userForm.controls.username.errors?.required">
-                Userame must be no longer than 20 characters.
-            </div>
-            <div *ngIf="userForm.controls.username.errors?.validateUsername && !userForm.controls.username.errors?.required">
-                Username should not contain any special characters.
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email"  placeholder="email" formControlName="email"
-        [ngClass]="{'is-invalid':userForm.controls.email.errors&&userForm.controls.email.dirty,'is-valid':!userForm.controls.email.errors}">
-        <div *ngIf="userForm.controls.email.errors && userForm.controls.email.dirty" class="alert alert-danger">
-            <div *ngIf="userForm.controls.email.errors?.required">
-                Email is required.
-            </div>
-            <div *ngIf="userForm.controls.email.errors?.minlength && !userForm.controls.email.errors?.required">
-                Email must have at least 10 characters.
-            </div>
-            <div *ngIf="userForm.controls.email.errors?.maxlength && !userForm.controls.email.errors?.required" >
-                Email is too long.
-            </div>
-            <div *ngIf="userForm.controls.email.errors?.validateEmail && !userForm.controls.email.errors?.required">
-                Must be a valid email.
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password"   placeholder="password" formControlName="password"
-        [ngClass]="{'is-invalid':userForm.controls.password.errors&&userForm.controls.password.dirty,'is-valid':!userForm.controls.password.errors}">
-        <div *ngIf="userForm.controls.password.errors && userForm.controls.password.dirty" class="alert alert-danger">
-            <div *ngIf="userForm.controls.password.errors?.required">
-                Password is required.
-            </div>
-            <div *ngIf="userForm.controls.password.errors?.minlength && !userForm.controls.password.errors?.required">
-                Password must have at least 8 characters.
-            </div>
-            <div *ngIf="userForm.controls.password.errors?.validatePassword && !userForm.controls.password.errors?.required">
-                Password should contain at least one lower,upper case and number.
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" class="form-control" id="confirmPassword"  placeholder="confirmPassword" formControlName="confirmPassword"
-        [ngClass]="{'is-invalid':(userForm.controls.confirmPassword.errors || userForm.errors) &&userForm.controls.confirmPassword.dirty,'is-valid':!userForm.controls.confirmPassword.errors && !userForm.errors}">
-        <div *ngIf="userForm.controls.confirmPassword.dirty && userForm.errors" class="alert alert-danger">
-            <div *ngIf="userForm.controls.confirmPassword.errors?.required">
-                Confirm Password is required.
-            </div>
-            <div *ngIf="!userForm.controls.confirmPassword.errors?.required && userForm.errors?.matchPassword">
-                Password doesn't match.
-            </div>
-        </div>
-    </div>
-    <button [disabled] = "!userForm.valid || signedUp" type="submit" class="btn btn-success">Submit</button>
-</form>
-<p>username: {{usernameStatus}}</p>
-<p>email: {{emailStatus}}</p>
-

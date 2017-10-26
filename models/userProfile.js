@@ -117,9 +117,5 @@ userProfileSchema.pre('save',function(next){
     })
 })
 
-userProfileSchema.methods.validatePassword = (password) => {
-    return bcrypt.compareSync(password,this.password);
-}
-
 //export model
 module.exports = mongoose.model('users', userProfileSchema);

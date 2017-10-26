@@ -8,7 +8,11 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SignUpAuthService } from './services/sign-up-auth.service';
+import { SignUpService } from './services/signup.service';
+import { LoginComponent } from './components/login/login.component';
+import { LoginService } from './services/login.service';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
     declarations: [
@@ -16,7 +20,9 @@ import { SignUpAuthService } from './services/sign-up-auth.service';
         NavbarComponent,
         HomeComponent,
         DashboardComponent,
-        RegisterComponent
+        RegisterComponent,
+        LoginComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,
@@ -24,7 +30,11 @@ import { SignUpAuthService } from './services/sign-up-auth.service';
         ReactiveFormsModule,
         HttpClientModule
     ],
-    providers: [SignUpAuthService],
+    providers: [
+        SignUpService,
+        LoginService,
+        AuthService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

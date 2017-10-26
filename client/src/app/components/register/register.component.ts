@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder , Validators} from '@angular/forms';
-import { SignUpAuthService } from '../../services/sign-up-auth.service';
+import { SignUpService } from '../../services/signup.service';
 import { Router } from '@angular/router';
 @Component({
     selector: 'app-register',
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
     usernameStatus;
     constructor(
         private formBuilder: FormBuilder,
-        private signUpAuthService: SignUpAuthService,
+        private signUpService: SignUpService,
         private router: Router
     ) { 
         this.signedUp = false;
@@ -118,7 +118,7 @@ export class RegisterComponent implements OnInit {
             email: this.userForm.get('email').value,
             password: this.userForm.get('password').value
         }
-        this.signUpAuthService.registerUser(user).subscribe(res => {
+        this.signUpService.registerUser(user).subscribe(res => {
             this.registerResponse = JSON.parse(JSON.stringify(res));
             if(this.registerResponse.success){
                 this.messageClass = 'alert alert-success';
@@ -127,28 +127,13 @@ export class RegisterComponent implements OnInit {
                 this.signedUp = false;
                 this.enableForm();
             }
+            this.signUpService.storeUser(this.registerResponse.token);
             this.message = this.registerResponse.message;
             setTimeout(()=>{
-                this.router.navigate(['/login']);
-            },1000)
+                this.router.navigate(['/profile']);
+            },2000)
         });
     }
-
-    // checkEmail(){
-    //     this.signUpAuthService.checkEmail(this.userForm.get('email').value).subscribe(res =>{
-    //         this.emailResponse = JSON.parse(JSON.stringify(res));
-    //         this.emailStatus = this.emailResponse.success;
-    //         this.emailMessage = this.emailMessage.message;
-    //     })
-    // }
-
-    // checkUsername(){
-    //     this.signUpAuthService.checkUsername(this.userForm.get('username').value).subscribe(res =>{
-    //         this.usernameResponse = JSON.parse(JSON.stringify(res));
-    //         this.usernameStatus = this.usernameResponse.success;
-    //         this.usernameMessage = this.usernameResponse.message;
-    //     })
-    // }
 
     ngOnInit() {
 
