@@ -13,7 +13,8 @@ export class SignUpService {
         return this.http.post(this.serverDomain+'/signup',user);
     }
 
-    storeUser(token){
+    storeUser(token,username){
         localStorage.setItem('token',token);
+        localStorage.setItem('username',username);
     }
 }

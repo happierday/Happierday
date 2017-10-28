@@ -8,27 +8,28 @@ import { Router } from '@angular/router';
     styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-    logedIn = false;
+    username;
     constructor(
         private authService: AuthService,
         private router: Router
-    ) { }
-
+    ) {}
+    
+    
     ngOnInit() {
-        this.checkLogedIn();
+        
     }
+
+    loggedIn(){
+        if(localStorage.getItem('token')){
+            this.username = localStorage.getItem('username');
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     onLogOut(){
         this.authService.logOut();
-        setTimeout(()=>{
-            this.router.navigate(['/']);
-        },2000)
-    }
-    
-    checkLogedIn(){
-        if(localStorage.getItem('token')){
-            this.logedIn = true;
-        }else{
-            this.logedIn = false;
-        }
+        this.router.navigate(['/']);
     }
 }

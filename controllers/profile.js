@@ -21,7 +21,7 @@ router.use((req,res,next) => {
     }
 })
 
-router.get('/',(req,res) => {
+router.get('/:username',(req,res) => {
     User.findById(req.decoded.userId,(err,user) =>{
         if(err){
             res.json({success: false, message: err});

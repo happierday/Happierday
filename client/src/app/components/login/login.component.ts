@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder , Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { AuthGuardService } from '../../services/auth-guard.service';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,12 @@ export class LoginComponent implements OnInit {
     message;
     messageClass;
     response;
+    url;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private authGuardService: AuthGuardService
     ) { 
         this.logedIn = false;
         this.createForm();
@@ -31,6 +34,13 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        if(this.authGuardService.redirectUrl){
+            this.message = 'You must log in before viewing that page';
+            this.messageClass = 'alert alert-danger';
+            this.url = this.authGuardService.redirectUrl;
+            this.authGuardService.redirectUrl = undefined;
+        }
+
     }
 
     disableForm(){
@@ -55,9 +65,13 @@ export class LoginComponent implements OnInit {
             this.message = this.response.message;
             if(this.response.success){
                 this.messageClass = 'alert alert-success';
-                this.loginService.storeUser(this.response.token);
+                this.loginService.storeUser(this.response.token,user.username);
                 setTimeout(()=>{
-                    this.router.navigate(['/profile']);
+                    if(this.url){
+                        this.router.navigate([this.url]);
+                    }else{
+                        this.router.navigate(['/profile/'+user.username]);
+                    }   
                 },2000)
             }else{
                 this.logedIn = false;

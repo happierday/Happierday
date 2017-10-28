@@ -13,7 +13,8 @@ export class LoginService {
         return this.http.post(this.serverDomain+'/login',user);
     }
 
-    storeUser(token){
+    storeUser(token,username){
         localStorage.setItem('token',token);
+        localStorage.setItem('username',username);
     }
 }

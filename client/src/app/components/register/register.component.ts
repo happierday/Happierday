@@ -127,10 +127,10 @@ export class RegisterComponent implements OnInit {
                 this.signedUp = false;
                 this.enableForm();
             }
-            this.signUpService.storeUser(this.registerResponse.token);
+            this.signUpService.storeUser(this.registerResponse.token,user.username);
             this.message = this.registerResponse.message;
             setTimeout(()=>{
-                this.router.navigate(['/profile']);
+                this.router.navigate(['/profile/'+user.username]);
             },2000)
         });
     }
