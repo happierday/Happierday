@@ -2,6 +2,8 @@ const User = require('../models/userProfile');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
+const mailer = require('nodemailer');
+
 const router = express.Router();
 
 router.post('/',(req,res)=>{
@@ -17,7 +19,8 @@ router.post('/',(req,res)=>{
                 let user = new User({
                     email: req.body.email.toLowerCase(),
                     username: req.body.username.toLowerCase(),
-                    password: req.body.password
+                    password: req.body.password,
+                    active: false
                 });
                 user.save((err)=>{
                     if(err){
@@ -41,48 +44,39 @@ router.post('/',(req,res)=>{
                             }
                         }
                     }
-                    const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });
-                    res.json({success: true, message: 'Account Registered! ',token:token});
+                    
+                    //verify email
+                    const gmailTrans = mailer.createTransport({
+                        service:  'Gmail',
+                        auth:  {
+                            user: 'happierdaywu26@gmail.com',
+                            pass: 'wu134679'
+                        }
+                    })
+                    const link = 'http://localhost:4200/verify/' + user._id;
+                    const mailOptions  = {
+                        from:'happierday',
+                        to: user.email,
+                        subject: 'Please comfirm you Email for Happierday',
+                        html : 'Hello,'+user.username+'<br> Please Click on the link to verify your email.<br><a href='+link+'>Click here to verify</a>'
+                    };
+                    gmailTrans.sendMail(mailOptions,function(err,response) {
+                        if(err){
+                            console.log(err);
+                            res.json({success:false,message:'Please provide a real email!'})
+                        }else{
+                            console.log('sent');
+                            res.json({success:true,message:'Please verify your email by clicking the link in your email inbox!',id:user._id})
+                        }
+                        return;
+                    })
                 })
             }
         }
     }
 })
 
-router.get('/checkemail/:email',(req,res) => {
-    if(!req.params.email){
-        res.json({success: false, message: 'Email is not provided'})
-    }else{
-        User.findOne({email: req.params.email},(err,user) =>{
-            if(err){
-                res.json({success: false, message: err})
-            }else{
-                if(user){
-                    res.json({success: false, message: 'Email already Exists'});
-                }else{
-                    res.json({success: true, message:'Email is avaliable!'});
-                }
-            }
-        })
-    }
-})
 
-router.get('/checkusername/:username',(req,res) => {
-    if(!req.params.username){
-        res.json({success: false, message: 'Username is not provided'})
-    }else{
-        User.findOne({username: req.params.username},(err,user) =>{
-            if(err){
-                res.json({success: false, message: err})
-            }else{
-                if(user){
-                    res.json({success: false, message: 'Username already Exists'});
-                }else{
-                    res.json({success: true, message:'Username is avaliable!'});
-                }
-            }
-        })
-    }
-})
+
 
 module.exports = router;

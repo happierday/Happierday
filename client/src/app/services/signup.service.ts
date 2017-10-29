@@ -13,8 +13,12 @@ export class SignUpService {
         return this.http.post(this.serverDomain+'/signup',user);
     }
 
-    storeUser(token,username){
-        localStorage.setItem('token',token);
+    verifyUser(id){
+        return this.http.get(this.serverDomain+'/verify/'+id);
+    }
+
+    storeUser(username,id){
         localStorage.setItem('username',username);
+        localStorage.setItem('id',id);
     }
 }

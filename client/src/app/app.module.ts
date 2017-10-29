@@ -14,6 +14,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { NonauthService } from './services/nonauth.service';
+import { VerifyComponent } from './components/verify/verify.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { NonauthService } from './services/nonauth.service';
         HomeComponent,
         RegisterComponent,
         LoginComponent,
-        ProfileComponent
+        ProfileComponent,
+        VerifyComponent
     ],
     imports: [
         BrowserModule,

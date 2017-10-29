@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { NonauthService } from './services/nonauth.service';
+import { VerifyComponent } from './components/verify/verify.component';
 
 const appRoutes: Routes = [
     {
@@ -16,6 +17,10 @@ const appRoutes: Routes = [
         path: 'signup',
         component: RegisterComponent,
         canActivate: [NonauthService]
+    },
+    {
+        path: 'verify/:id',
+        component: VerifyComponent
     },
     {
         path: 'login',

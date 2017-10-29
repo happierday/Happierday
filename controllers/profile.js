@@ -27,7 +27,11 @@ router.get('/:username',(req,res) => {
             res.json({success: false, message: err});
         }else{
             if(user){
-                res.json({success: true, username:user.username,email:user.email});
+                if(user.active){
+                    res.json({success: true, username:user.username,email:user.email});
+                }else{
+                    res.json({success: false, message: 'Please verify your account first throught the link in your email inbox!'});
+                }    
             }else{
                 res.json({success: false, message: 'User not found!'});
             }

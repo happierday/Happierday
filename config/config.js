@@ -2,5 +2,6 @@ const crypto = require('crypto').randomBytes(256).toString('hex');
 
 module.exports = {
     secret: crypto,
-    url : 'mongodb://localhost:27017/happierday-test'
+    url : 'mongodb://localhost:27017/happierday-test',
+    email: 'jianchengw26@gmail.com'
 }

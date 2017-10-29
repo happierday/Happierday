@@ -29,17 +29,19 @@ app.use(bodyParser.urlencoded({extended:true}));
 const signup = require('./controllers/signup');
 const login = require('./controllers/login');
 const profile = require('./controllers/profile');
+const verify = require('./controllers/verify');
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/signup',signup);
 app.use('/login',login);
 app.use('/profile',profile);
+app.use('/verify',verify);
 
 
 //bound with angular
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname + '/client/dist/index.html'));
-})
+// app.get('*',(req,res)=>{
+//     res.sendFile(path.join(__dirname + '/client/dist/index.html'));
+// })
 
 app.listen(8000,() => {
     console.log('listening to 8000');

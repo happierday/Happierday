@@ -122,16 +122,13 @@ export class RegisterComponent implements OnInit {
             this.registerResponse = JSON.parse(JSON.stringify(res));
             if(this.registerResponse.success){
                 this.messageClass = 'alert alert-success';
+                this.signUpService.storeUser(user.username,this.registerResponse.id);
             }else{
                 this.messageClass = 'alert alert-danger';
                 this.signedUp = false;
                 this.enableForm();
             }
-            this.signUpService.storeUser(this.registerResponse.token,user.username);
             this.message = this.registerResponse.message;
-            setTimeout(()=>{
-                this.router.navigate(['/profile/'+user.username]);
-            },2000)
         });
     }
 

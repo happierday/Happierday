@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
                 }else{
                     setTimeout(() => {
                         this.router.navigate(['/']);
-                    }, 2000); 
+                    }, 4000); 
                 }
             })
         }

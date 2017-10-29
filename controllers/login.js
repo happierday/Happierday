@@ -22,11 +22,16 @@ router.post('/',(req,res)=>{
                     res.json({success: false, message: err});
                 }else{
                     if(user){
-                        if(validatePassword(req.body.password,user.password)){
-                            const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });
-                            res.json({success: true, message: 'Loged In',token:token});
+                        console.log(user);
+                        if(user.active){
+                            if(validatePassword(req.body.password,user.password)){
+                                const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });
+                                res.json({success: true, message: 'Loged In',token:token});
+                            }else{
+                                res.json({success: false, message: 'Password does not match'});
+                            }
                         }else{
-                            res.json({success: false, message: 'Password does not match'});
+                            res.json({success: false, message: 'Please verify your account first throught the link in your email inbox!'});
                         }
                     }else{
                         res.json({success: false, message: 'No such account!'});

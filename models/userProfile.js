@@ -105,6 +105,7 @@ const userProfileSchema = new Schema({
     email:  { type : String, required:true,  unique:true, lowercase:true, validate: emailValidator},
     username:  { type : String, required:true,  unique:true, lowercase:true, validate: usernameValidator},
     password:  { type : String, required:true,  validate: passwordValidator},
+    active: { type: Boolean }
 });
 
 //before save to mongodb, check whether password is hashed or not
