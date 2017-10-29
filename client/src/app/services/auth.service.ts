@@ -6,7 +6,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class AuthService {
     header;
-    username = localStorage.getItem('username');
+    username;
     serverDomain = "http://localhost:8000"
     constructor(
         private http: HttpClient,
@@ -23,7 +23,12 @@ export class AuthService {
     }
 
     loggedIn(){
-        return tokenNotExpired();
+        if(tokenNotExpired()){
+            this.username = localStorage.getItem('username');
+            return true;
+        }else{
+            return false;
+        }
     }
 
     logOut(){

@@ -19,6 +19,6 @@ export class SignUpService {
 
     storeUser(username,token){
         localStorage.setItem('username',username);
-        localStorage.setItem('tokne',token);
+        localStorage.setItem('token',token);
     }
 }

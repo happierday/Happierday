@@ -14,10 +14,10 @@ export class VerifyComponent implements OnInit {
     constructor(
         private router: Router,
         private signUpService: SignUpService
-    ) {  }
+    ) { this.verify(); }
 
     ngOnInit() {
-        this.verify();
+        
     }
 
     verify(){
@@ -29,7 +29,9 @@ export class VerifyComponent implements OnInit {
                 this.signUpService.storeUser(this.response.username,this.response.token);
                 localStorage.removeItem('hash');
                 this.messageClass = 'alert alert-success';
-                this.router.navigate(['profile/'+localStorage.getItem('username')]);
+                setTimeout(() => {
+                    this.router.navigate(['/profile/' + this.response.username]);                    
+                },2000);
             }else{
                 this.messageClass = 'alert alert-danger';
             }

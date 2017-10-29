@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
                     }else{
                         this.router.navigate(['/profile/'+user.username]);
                     }   
-                },2000)
+                },1000)
             }else{
                 this.logedIn = false;
                 this.messageClass = 'alert alert-danger';

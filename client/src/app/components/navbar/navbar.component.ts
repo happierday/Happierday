@@ -19,15 +19,6 @@ export class NavbarComponent implements OnInit {
         
     }
 
-    loggedIn(){
-        if(localStorage.getItem('token')){
-            this.username = localStorage.getItem('username');
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     onLogOut(){
         this.authService.logOut();
         this.router.navigate(['/']);

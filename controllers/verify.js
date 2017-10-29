@@ -22,7 +22,7 @@ router.get('/:hash',(req,res) => {
                         }else{
                             if(user){
                                 const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });
-                                res.json({success: true, message: 'Account Resigtered! Please Log In!',token:token,username:user.username});
+                                res.json({success: true, message: 'Account Resigtered!',token:token,username:user.username});
                             }else{
                                 res.json({success: false, message: 'User account does not exist'});
                             }
