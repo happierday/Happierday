@@ -17,8 +17,8 @@ export class SignUpService {
         return this.http.get(this.serverDomain+'/verify/'+id);
     }
 
-    storeUser(username,id){
+    storeUser(username,token){
         localStorage.setItem('username',username);
-        localStorage.setItem('id',id);
+        localStorage.setItem('tokne',token);
     }
 }

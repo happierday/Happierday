@@ -2,23 +2,39 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 const User = require('../models/userProfile');
+const Verify = require('../models/verify');
+const bcrypt = require('bcrypt');
 
 const router = express.Router();
 
-router.get('/:id',(req,res) => {
-    if(!req.params.id){
+router.get('/:hash',(req,res) => {
+    if(!req.params.hash){
         res.json({success: false, message: 'ID is not provided'})
     }else{
-        User.findById(req.params.id,(err,user) =>{
+        Verify.findOne({hash:req.params.hash},(err,verify) =>{
             if(err){
                 res.json({success: false, message: err})
             }else{
-                if(user){
-                    user.active = true;
-                    const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });
-                    res.json({success: true, message: 'Account Resigtered!',token:token});
+                if(verify){
+                    User.findByIdAndUpdate(verify.id,{ $set: { active: true }},(err,user) =>{
+                        if(err){
+                            res.json({success: false, message: err})
+                        }else{
+                            if(user){
+                                const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });
+                                res.json({success: true, message: 'Account Resigtered! Please Log In!',token:token,username:user.username});
+                            }else{
+                                res.json({success: false, message: 'User account does not exist'});
+                            }
+                        }
+                    })
+                    Verify.remove({hash: req.params.hash},(err) =>{
+                        if(err){
+                            res.json({success: false, message: err});
+                        }
+                    })
                 }else{
-                    res.json({success: false, message:'Error!'});
+                    res.json({success: false, message:'Link expired!'});
                 }
             }
         })

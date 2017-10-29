@@ -14,8 +14,12 @@ export class AuthGuardService implements CanActivate {
         if(localStorage.getItem('token')){
             return true;
         }else{
-            this.redirectUrl = state.url;
-            this.router.navigate(['/login']);
+            if(localStorage.getItem('username')){
+                this.redirectUrl = undefined;
+            }else{
+                this.redirectUrl = state.url;
+                this.router.navigate(['/login']);
+            }  
             return false;
         }
     }

@@ -122,7 +122,7 @@ export class RegisterComponent implements OnInit {
             this.registerResponse = JSON.parse(JSON.stringify(res));
             if(this.registerResponse.success){
                 this.messageClass = 'alert alert-success';
-                this.signUpService.storeUser(user.username,this.registerResponse.id);
+                localStorage.setItem('hash',this.registerResponse.hash);
             }else{
                 this.messageClass = 'alert alert-danger';
                 this.signedUp = false;

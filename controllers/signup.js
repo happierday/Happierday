@@ -1,9 +1,10 @@
 const User = require('../models/userProfile');
+const Verify = require('../models/verify');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 const mailer = require('nodemailer');
-
+const crypto = require('crypto');
 const router = express.Router();
 
 router.post('/',(req,res)=>{
@@ -22,6 +23,15 @@ router.post('/',(req,res)=>{
                     password: req.body.password,
                     active: false
                 });
+                
+                let verify = new Verify({
+                    hash: crypto.randomBytes(20).toString('hex'),
+                    id: user._id
+                });
+                verify.save((err) =>{
+                    if(err) return err;
+                })
+                
                 user.save((err)=>{
                     if(err){
                         if(err.code === 11000){
@@ -53,7 +63,7 @@ router.post('/',(req,res)=>{
                             pass: 'wu134679'
                         }
                     })
-                    const link = 'http://localhost:4200/verify/' + user._id;
+                    const link = 'http://localhost:4200/verify/' + verify.hash;
                     const mailOptions  = {
                         from:'happierday',
                         to: user.email,
@@ -62,11 +72,9 @@ router.post('/',(req,res)=>{
                     };
                     gmailTrans.sendMail(mailOptions,function(err,response) {
                         if(err){
-                            console.log(err);
                             res.json({success:false,message:'Please provide a real email!'})
                         }else{
-                            console.log('sent');
-                            res.json({success:true,message:'Please verify your email by clicking the link in your email inbox!',id:user._id})
+                            res.json({success:true,message:'Please verify your email by clicking the link in your email inbox!',hash:verify.hash})
                         }
                         return;
                     })
@@ -75,8 +83,5 @@ router.post('/',(req,res)=>{
         }
     }
 })
-
-
-
 
 module.exports = router;

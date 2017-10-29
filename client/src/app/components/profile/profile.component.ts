@@ -26,7 +26,6 @@ export class ProfileComponent implements OnInit {
             this.authService.getProfile().subscribe(res => {
                 this.result = JSON.parse(JSON.stringify(res));
                 if(this.result.success){
-                    this.status = true;
                     this.username = this.result.username;
                     this.email = this.result.email;
                 }else{
