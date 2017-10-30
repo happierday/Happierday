@@ -913,7 +913,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
-        this.serverDomain = "http://localhost:8000";
+        this.serverDomain = "https://happierday.herokuapp.com/";
     }
     AuthService.prototype.authUser = function () {
         this.header = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({
