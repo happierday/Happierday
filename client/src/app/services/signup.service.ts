@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SignUpService {
-    serverDomain =  "http://localhost:8000";
+    serverDomain =  "https://happierday.herokuapp.com";
     constructor(
         private http: HttpClient
     ) { 

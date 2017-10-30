@@ -969,7 +969,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var LoginService = (function () {
     function LoginService(http) {
         this.http = http;
-        this.serverDomain = "http://localhost:8000";
+        this.serverDomain = "https://happierday.herokuapp.com";
     }
     LoginService.prototype.Login = function (user) {
         return this.http.post(this.serverDomain + '/login', user);
@@ -1054,7 +1054,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var SignUpService = (function () {
     function SignUpService(http) {
         this.http = http;
-        this.serverDomain = "http://localhost:8000";
+        this.serverDomain = "https://happierday.herokuapp.com";
     }
     SignUpService.prototype.registerUser = function (user) {
         return this.http.post(this.serverDomain + '/signup', user);
