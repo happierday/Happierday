@@ -4,7 +4,7 @@ const config = require('./config/config');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const port = process.env.PORT || 8000;
 //set up db connection
 mongoose.Promise = global.Promise;
 mongoose.connect(config.url,(err)=>{
@@ -43,6 +43,6 @@ app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));
 })
 
-app.listen(8000,() => {
-    console.log('listening to 8000');
+app.listen(port,() => {
+    console.log('listening to ' + port);
 });
