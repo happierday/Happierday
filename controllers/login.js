@@ -22,7 +22,6 @@ router.post('/',(req,res)=>{
                     res.json({success: false, message: err});
                 }else{
                     if(user){
-                        console.log(user);
                         if(user.active){
                             if(validatePassword(req.body.password,user.password)){
                                 const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });

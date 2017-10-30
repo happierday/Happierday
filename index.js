@@ -11,15 +11,15 @@ mongoose.connect(config.url,(err)=>{
     if(err){
         console.log('cant connect' + err);
     }else{
-        console.log('connected to happierday-test');
+        console.log('connected to happierday');
     }
 })
 
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:4200'
-}));
+// app.use(cors({
+//     origin: 'http://localhost:4200'
+// }));
 
 //add midware bodyParser
 app.use(bodyParser.json());
@@ -39,9 +39,9 @@ app.use('/verify',verify);
 
 
 //bound with angular
-// app.get('*',(req,res)=>{
-//     res.sendFile(path.join(__dirname + '/client/dist/index.html'));
-// })
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname + '/client/dist/index.html'));
+})
 
 app.listen(8000,() => {
     console.log('listening to 8000');
