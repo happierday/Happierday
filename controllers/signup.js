@@ -63,7 +63,7 @@ router.post('/',(req,res)=>{
                             pass: 'wu134679'
                         }
                     })
-                    const link = 'https://happierday.herokuapp.com/' + verify.hash;
+                    const link = 'https://happierday.herokuapp.com/verify/' + verify.hash;
                     const mailOptions  = {
                         from:'happierday',
                         to: user.email,
