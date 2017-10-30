@@ -83,7 +83,7 @@ var AppRoutingModule = (function () {
 AppRoutingModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forRoot(appRoutes)
+            __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forRoot(appRoutes, { useHash: true })
         ],
         exports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */]
@@ -1060,7 +1060,8 @@ var SignUpService = (function () {
         return this.http.post(this.serverDomain + '/signup', user);
     };
     SignUpService.prototype.verifyUser = function (id) {
-        return this.http.get(this.serverDomain + '/verify/' + id);
+        this.url = this.serverDomain + '/verify/' + id;
+        return this.http.get(this.url);
     };
     SignUpService.prototype.storeUser = function (username, token) {
         localStorage.setItem('username', username);
