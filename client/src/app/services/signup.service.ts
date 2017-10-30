@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class SignUpService {
     serverDomain =  "https://happierday.herokuapp.com";
+    url;
     constructor(
         private http: HttpClient
     ) { 
@@ -14,7 +15,8 @@ export class SignUpService {
     }
 
     verifyUser(id){
-        return this.http.get(this.serverDomain+'/verify/'+id);
+        this.url = this.serverDomain + '/verify/' + id;
+        return this.http.get(this.url);
     }
 
     storeUser(username,token){
