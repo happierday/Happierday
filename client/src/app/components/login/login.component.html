@@ -9,18 +9,20 @@
         </div>
 
         <form [formGroup] = "userForm" (submit) = "onLoginSubmit()">
-            <div class="form-group" [ngClass]="{'has-error':userForm.controls.username.errors&&userForm.controls.username.dirty,'has-success':!userForm.controls.username.errors}">
+            <div class="form-group">
                 <label for="username" >Username</label>
-                <input type="text"  id="username" class="form-control"  placeholder="username" formControlName="username">
+                <input type="text"  id="username" class="form-control"  placeholder="username" formControlName="username"
+                [ngClass]="{'is-invalid':userForm.controls.username.errors&&userForm.controls.username.dirty,'is-valid':!userForm.controls.username.errors}">
                 <div *ngIf="(userForm.controls.username.errors && userForm.controls.username.dirty)" class="alert alert-danger">
                     <div *ngIf="userForm.controls.username.errors?.required">
                         Userame is required.
                     </div>
                 </div>
             </div>
-            <div class="form-group" [ngClass]="{'has-error':userForm.controls.password.errors&&userForm.controls.password.dirty,'has-success':!userForm.controls.password.errors}">
+            <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password"   placeholder="password" formControlName="password">
+                <input type="password" class="form-control" id="password"   placeholder="password" formControlName="password"
+                [ngClass]="{'is-invalid':userForm.controls.password.errors&&userForm.controls.password.dirty,'is-valid':!userForm.controls.password.errors}">
                 <div *ngIf="userForm.controls.password.errors && userForm.controls.password.dirty" class="alert alert-danger">
                     <div *ngIf="userForm.controls.password.errors?.required">
                         Password is required.

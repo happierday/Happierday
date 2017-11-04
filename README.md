@@ -15,4 +15,3 @@ after npm install for client finished, go ng build to build the angular front en
 on the root directory, run mongod --dbpath D:\happierday-test, either drive will be fine
 
 then run nodemon cmd
-

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder , Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service';
-import { AuthGuardService } from '../../services/auth-guard.service';
+import { LoginService } from '../../services/login/login.service';
+import { AuthGuardService } from '../../services/auth/auth-guard.service';
 
 @Component({
   selector: 'app-login',
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
                     if(this.url){
                         this.router.navigate([this.url]);
                     }else{
-                        this.router.navigate(['/profile/'+user.username]);
+                        this.router.navigate(['/']);
                     }   
                 },1000)
             }else{

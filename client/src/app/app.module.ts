@@ -7,14 +7,18 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SignUpService } from './services/signup.service';
+import { SignUpService } from './services/signup/signup.service';
 import { LoginComponent } from './components/login/login.component';
-import { LoginService } from './services/login.service';
+import { LoginService } from './services/login/login.service';
 import { ProfileComponent } from './components/profile/profile.component';
-import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './services/auth-guard.service';
-import { NonauthService } from './services/nonauth.service';
+import { AuthService } from './services/auth/auth.service';
+import { AuthGuardService } from './services/auth/auth-guard.service';
+import { NonauthService } from './services/auth/nonauth.service';
 import { VerifyComponent } from './components/verify/verify.component';
+import { JokeComponent } from './components/joke/joke.component';
+import { JokesService } from './services/jokes/jokes.service';
+import { JokeDetailComponent } from './components/joke-detail/joke-detail.component';
+
 
 @NgModule({
     declarations: [
@@ -24,7 +28,9 @@ import { VerifyComponent } from './components/verify/verify.component';
         RegisterComponent,
         LoginComponent,
         ProfileComponent,
-        VerifyComponent
+        VerifyComponent,
+        JokeComponent,
+        JokeDetailComponent
     ],
     imports: [
         BrowserModule,
@@ -37,7 +43,8 @@ import { VerifyComponent } from './components/verify/verify.component';
         LoginService,
         AuthService,
         AuthGuardService,
-        NonauthService
+        NonauthService,
+        JokesService
     ],
     bootstrap: [AppComponent]
 })

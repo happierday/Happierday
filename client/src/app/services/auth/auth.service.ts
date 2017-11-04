@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
-import { RequestOptions, Headers } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
     header;
     username;
-    serverDomain = "https://happierday.herokuapp.com"
+    // //deployment
+    // serverDomain =  "https://happierday.herokuapp.com";
+    // development
+    serverDomain =  "http://localhost:8000";
     constructor(
         private http: HttpClient,
     ) { }
@@ -17,9 +19,14 @@ export class AuthService {
         });
     }
     
+    storeUser(token,username){
+        localStorage.setItem('username',username);
+        localStorage.setItem('token',token);
+    }
+
     getProfile(){
         this.authUser();
-        return this.http.get(this.serverDomain + "/profile/"+ localStorage.getItem('username'),{headers:this.header});
+        return this.http.get(this.serverDomain + '/profile/'+ localStorage.getItem('username'),{headers:this.header});
     }
 
     loggedIn(){
@@ -27,6 +34,7 @@ export class AuthService {
             this.username = localStorage.getItem('username');
             return true;
         }else{
+            this.username = undefined;
             return false;
         }
     }

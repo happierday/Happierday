@@ -1,14 +1,14 @@
-#form {
-    height: 500px;
-    border: 2px solid rgb(255, 200, 0);
-    width: 50%; 
-    margin: 0 auto;
-    margin-top: 5%;
-    padding: 3%;
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
 }
 
-.shadowButtons {
-    height: 35px;
-    width: 100px;
-    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.2), 0 6px 90px 0 rgba(0,0,0,0.19);
+.navbar {
+    background-image: linear-gradient(to bottom, #72d1a9 0%,#eee 100%);
+    border: 1px solid #e5e5e5;
+}
+  
+.col-lg-4{
+    background-image: linear-gradient(to bottom, #72d1a9 0%,#eee 100%);
+    border: 1px solid #e5e5e5;
 }

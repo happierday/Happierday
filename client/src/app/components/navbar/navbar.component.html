@@ -1,29 +1,27 @@
-<div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <a class="navbar-brand" routerLink = "/">Happierday</a>
-        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-        </button>
-        <div class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
-                <li class="nav-item" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
-                    <a class="nav-link" routerLink = "/">Home</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item "  *ngIf= "!authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
-                    <a class="nav-link"  routerLink = "/login">Login</a>
-                </li>
-                <li class="nav-item " *ngIf= "!authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
-                    <a class="nav-link"  routerLink = "/signup">Signup</a>
-                </li>
-                <li class="nav-item "  *ngIf= "authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
-                    <a class="nav-link"  routerLink = "/profile/{{authService.username}}">{{authService.username}}</a>
-                </li>
-                <li class="nav-item "  *ngIf= "authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
-                    <a class="nav-link" (click)="onLogOut()" >Logout</a>
-                </li>
-            </ul>
-        </div>
+<div class="navbar navbar-default navbar-expand-lg navbar-dark navbar-static-top bg-success nav-tabs">
+    <a class="navbar-brand" routerLink = "/">Happierday</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="nav justify-content-end mr-auto">
+            <li class="nav-item "  routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+                <a class="nav-link"  routerLink = "/">Home</a>
+            </li>
+        </ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-item "  *ngIf= "!authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+                <a class="nav-link"  routerLink = "/login">Login</a>
+            </li>
+            <li class="nav-item " *ngIf= "!authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+                <a class="nav-link"  routerLink = "/signup">Signup</a>
+            </li>
+            <li class="nav-item "  *ngIf= "authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+                <a class="nav-link"  routerLink = "/profile/{{authService.username}}">{{authService.username}}</a>
+            </li>
+            <li class="nav-item "  *ngIf= "authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+                <a class="nav-link" routerLink = "/logout" (click)="onLogOut()" >Logout</a>
+            </li>
+        </ul>
     </div>
 </div>
