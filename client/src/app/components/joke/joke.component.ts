@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth/auth.service';
     styleUrls: ['./joke.component.css']
 })
 export class JokeComponent implements OnInit {
-
+    loggedIn;
     postForm;
     response;
     message;
@@ -22,8 +22,9 @@ export class JokeComponent implements OnInit {
         private jokesService: JokesService,
         private authService: AuthService
     ) { this.createForm() }
-
+    
     ngOnInit() {
+        this.loggedIn = this.authService.loggedIn();
         this.jokesService.getJokes().subscribe((res) =>{
             this.jokes = res;
         })

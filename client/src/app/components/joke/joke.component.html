@@ -10,7 +10,7 @@
     </button>
     <div class="collapse" id="newPost">
         <div class = "jumbotron">
-            <div *ngIf="authService.loggedIn()">
+            <div *ngIf="loggedIn">
                 <form [formGroup] = "postForm" (submit) = "createNewPost()">
                     <div class="form-group">
                         <label for="title">Title</label>
@@ -44,7 +44,7 @@
                     <button type="submit" [disabled] = "postForm.controls.content.errors || (!postForm.controls.content.dirty && !postForm.controls.title.dirty) "class="btn btn-success">Post</button>
                 </form>
             </div>
-            <div *ngIf="!authService.loggedIn()">
+            <div *ngIf="!loggedIn">
                 Oops. It seems like you didn't log in.
             </div>
         </div>

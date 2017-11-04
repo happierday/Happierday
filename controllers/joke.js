@@ -1,7 +1,5 @@
 const Joke = require('../models/joke');
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const config = require('../config/config');
 const router = express.Router();
 //authenticate user
 

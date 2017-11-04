@@ -10,18 +10,19 @@
             </li>
         </ul>
         <ul class="nav justify-content-end">
-            <li class="nav-item "  *ngIf= "!authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+            <li class="nav-item "  *ngIf= "!loggedIn" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
                 <a class="nav-link"  routerLink = "/login">Login</a>
             </li>
-            <li class="nav-item " *ngIf= "!authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+            <li class="nav-item " *ngIf= "!loggedIn" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
                 <a class="nav-link"  routerLink = "/signup">Signup</a>
             </li>
-            <li class="nav-item "  *ngIf= "authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+            <li class="nav-item "  *ngIf= "loggedIn" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
                 <a class="nav-link"  routerLink = "/profile/{{authService.username}}">{{authService.username}}</a>
             </li>
-            <li class="nav-item "  *ngIf= "authService.loggedIn()" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
+            <li class="nav-item "  *ngIf= "loggedIn" routerLinkActive = "active" [routerLinkActiveOptions] = "{exact:true}">
                 <a class="nav-link" routerLink = "/logout" (click)="onLogOut()" >Logout</a>
             </li>
         </ul>
     </div>
 </div>
+

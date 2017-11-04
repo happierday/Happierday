@@ -39,10 +39,11 @@ app.use('/profile',profile);
 app.use('/verify',verify);
 app.use('/jokes',jokes);
 
+app.use(express.static(__dirname + '/client/dist/'));
 
 //bound with angular
 app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname + '/client/dist/index.html'));
+    res.sendFile(path.join(__dirname + 'index.html'));
 })
 
 app.listen(port,() => {
