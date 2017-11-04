@@ -2,8 +2,6 @@
 
 MEAN stack project
 
-encountered the prrblem with node v8, the link doesn't work anymore.
-
 deployment url: https://happierday.herokuapp.com
 
 Install node and mongodb
