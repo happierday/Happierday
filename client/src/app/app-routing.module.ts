@@ -50,10 +50,10 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    //   //deployment
-    //   RouterModule.forRoot(appRoutes,{useHash:true})
-    //development
-    RouterModule.forRoot(appRoutes)
+      //deployment
+      RouterModule.forRoot(appRoutes,{useHash:true})
+    // //development
+    // RouterModule.forRoot(appRoutes)
   ],
   exports: [
       RouterModule

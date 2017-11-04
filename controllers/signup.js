@@ -63,10 +63,10 @@ router.post('/',(req,res)=>{
                             pass: 'wu134679'
                         }
                     })
-                    //deployment
-                    //const link = 'https://happierday.herokuapp.com/#/verify/' + verify.hash;
-                    //development
-                    const link = 'http://localhost:4200/verify/' + verify.hash;
+                    deployment
+                    const link = 'https://happierday.herokuapp.com/#/verify/' + verify.hash;
+                    // //development
+                    // const link = 'http://localhost:4200/verify/' + verify.hash;
                     const mailOptions  = {
                         from:'happierday',
                         to: user.email,
