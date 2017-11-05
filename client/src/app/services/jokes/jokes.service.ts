@@ -19,6 +19,11 @@ export class JokesService {
     }
 
     getJokeDetail(title){
-        return this.http.get(this.authService.serverDomain + '/jokes/' + title);
+        if(this.authService.loggedIn()){
+            this.authService.authUser();
+            return this.http.get(this.authService.serverDomain + '/jokes/' + title, {headers: this.authService.header});
+        }else{
+            return this.http.get(this.authService.serverDomain + '/jokes/' + title);
+        }   
     }
 }

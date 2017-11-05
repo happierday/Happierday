@@ -52,7 +52,8 @@
     <div>
         <ul *ngFor = "let joke of jokes">
             <li>
-                <a href="/jokes/{{joke.ref}}">{{joke.title}}</a>
+                <a routerLink="/jokes/{{joke.ref}}">{{joke.title}}</a>
+                <a routerLink="/profile/{{joke.username}}">{{joke.username}}</a>
             </li>
         </ul>
     </div>

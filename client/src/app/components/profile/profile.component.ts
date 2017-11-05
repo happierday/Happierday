@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
+import { ProfileService } from '../../services/profile/profile.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -12,29 +12,18 @@ export class ProfileComponent implements OnInit {
     username;
     email;
     result;
-    status;
-    message;
+    authStatus;
     constructor(
-        private authService: AuthService,
+        private profileService: ProfileService,
         private router: Router
     ) { }
     
     ngOnInit() {
-        if(!localStorage.getItem('token')){
-            this.router.navigate(['/']);
-        }else{
-            this.authService.getProfile().subscribe(res => {
-                this.result = JSON.parse(JSON.stringify(res));
-                if(this.result.success){
-                    this.username = this.result.username;
-                    this.email = this.result.email;
-                }else{
-                    setTimeout(() => {
-                        this.router.navigate(['/']);
-                    }, 4000); 
-                }
-            })
-        }
+        this.profileService.getProfile(this.router.url.split('/')[2]).subscribe(res => {
+            this.result = JSON.parse(JSON.stringify(res));
+            this.authStatus = this.result.auth;
+            this.email = this.result.email;
+            this.username = this.result.username;
+        }) 
     }
-
 }

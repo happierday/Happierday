@@ -18,7 +18,7 @@ import { VerifyComponent } from './components/verify/verify.component';
 import { JokeComponent } from './components/joke/joke.component';
 import { JokesService } from './services/jokes/jokes.service';
 import { JokeDetailComponent } from './components/joke-detail/joke-detail.component';
-
+import { ProfileService } from './services/profile/profile.service';
 
 @NgModule({
     declarations: [
@@ -44,7 +44,8 @@ import { JokeDetailComponent } from './components/joke-detail/joke-detail.compon
         AuthService,
         AuthGuardService,
         NonauthService,
-        JokesService
+        JokesService,
+        ProfileService
     ],
     bootstrap: [AppComponent]
 })

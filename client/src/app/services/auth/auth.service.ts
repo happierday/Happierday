@@ -9,24 +9,19 @@ export class AuthService {
     //deployment
     serverDomain =  "https://happierday.herokuapp.com";
     // // development
-    // serverDomain =  "http://localhost:8000";
+    //serverDomain =  "http://localhost:8000";
     constructor(
         private http: HttpClient,
     ) { }
     authUser(){
         this.header = new HttpHeaders({
-            'authtoken': localStorage.getItem('token')
+            authtoken: localStorage.getItem('token')
         });
     }
     
     storeUser(token,username){
         localStorage.setItem('username',username);
         localStorage.setItem('token',token);
-    }
-
-    getProfile(){
-        this.authUser();
-        return this.http.get(this.serverDomain + '/profile/'+ localStorage.getItem('username'),{headers:this.header});
     }
 
     loggedIn(){
@@ -40,6 +35,8 @@ export class AuthService {
     }
 
     logOut(){
+        this.username = undefined;
         localStorage.clear();
     }
+
 }

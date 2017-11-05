@@ -34,13 +34,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(this.authGuardService.redirectUrl){
-            this.message = 'You must log in before viewing that page';
-            this.messageClass = 'alert alert-danger';
-            this.url = this.authGuardService.redirectUrl;
-            this.authGuardService.redirectUrl = undefined;
-        }
-
+        // if(this.authGuardService.redirectUrl){
+        //     this.message = 'You must log in before viewing that page';
+        //     this.messageClass = 'alert alert-danger';
+        //     this.url = this.authGuardService.redirectUrl;
+        //     this.authGuardService.redirectUrl = undefined;
+        // }
     }
 
     disableForm(){

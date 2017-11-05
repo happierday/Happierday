@@ -29,6 +29,10 @@ const appRoutes: Routes = [
         canActivate: [NonauthService]
     },
     {
+        path: 'logout',
+        redirectTo: ''
+    },
+    {
         path: 'verify/:id',
         component: VerifyComponent
     },
@@ -39,8 +43,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'profile/:username',
-        component: ProfileComponent,
-        canActivate: [AuthGuardService]
+        component: ProfileComponent
     },
     {
         path: '**',

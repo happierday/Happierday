@@ -1,5 +1,8 @@
 const Joke = require('../models/joke');
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
+const User = require('../models/userProfile');
 const router = express.Router();
 //authenticate user
 
@@ -26,6 +29,20 @@ router.get('/',(req,res)=>{
     })
 })
 
+router.use((req,res,next) => {
+    const token = req.headers.authtoken;
+    if(token){
+        jwt.verify(token,'secret',(err, decoded) => {
+            if(err){
+                res.json({success: false, message: err});
+            }else{
+                req.decoded = decoded;
+            }
+        })
+    }
+    next();
+})
+
 router.get('/:title',(req,res) => {
     if(!req.params.title){
         res.json({success: false, message: 'No title provided!'});
@@ -35,7 +52,25 @@ router.get('/:title',(req,res) => {
                 res.json({success: false, message: err});
             }else{
                 if(joke){
-                    res.send(joke);
+                    if(req.decoded){
+                        User.findById(req.decoded.userId, (err,user) =>{
+                            if(err){
+                                res.json({success: false, message: err});
+                            }else{
+                                if(user){
+                                    if(joke.username === user.username){
+                                        res.json({joke:joke,auth:true});
+                                    }else{
+                                        res.json({joke:joke,auth:false});
+                                    }
+                                }else{
+                                    res.json({joke:joke,auth:false});
+                                }
+                            }
+                        })
+                    }else{
+                        res.json({joke:joke,auth:false});
+                    }
                 }else{
                     res.json({success: false, message: 'Oops, Not Found!'});
                 }

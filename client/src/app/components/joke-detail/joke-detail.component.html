@@ -1,8 +1,48 @@
 <div class = "container">
     <p>Title: {{jokeDetail?.title}}</p>
-    <p>username: {{jokeDetail?.username}}</p>
     <p>content: {{jokeDetail?.content}}</p>
     <p>createdAt: {{jokeDetail?.createdAt}}</p>
-    <p>likes: {{jokeDetail?.likes}}</p>
-    <p>dislikes: {{jokeDetail?.dislikes}}</p>        
+    <div *ngIf="!authStatus">
+        <p>username: {{jokeDetail?.username}}</p>
+        <p>likes: {{jokeDetail?.likes}}</p>
+        <p>dislikes: {{jokeDetail?.dislikes}}</p>
+        <button type="button" class="btn btn-primary">Like</button>
+        <button type="button" class="btn btn-danger">Dislike</button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#newComment" aria-expanded="false" aria-controls="collapseExample">
+                New Post
+            </button>
+            <div class="collapse" id="newComment">
+                <div class = "jumbotron">
+                    <div *ngIf="loggedIn">
+                        <form [formGroup] = "commentForm" (submit) = "creteNewComment()">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control"  formControlName = "comment">
+                                <textarea class="form-control"rows="5" formControlName = "content"></textarea>
+                                <div *ngIf="commentForm.controls.comment.errors && commentForm.controls.comment.dirty" class="alert alert-danger">
+                                    <div *ngIf="commentForm.controls.comment.errors?.required">
+                                        Content is required.
+                                    </div>
+                                    <div *ngIf="commentForm.controls.comment.errors?.minlength && !commentForm.controls.comment.errors?.required">
+                                        Post should have at least 5 characters.
+                                    </div>
+                                    <div *ngIf="commentForm.controls.comment.errors?.maxlength && !commentForm.controls.comment.errors?.required">
+                                        Post should not exceed 1000 characters long.
+                                    </div>
+                                </div>
+                            </div>
+                            <p>Character Left: {{1000-postForm.get('comment').value.length}}</p>
+                            <button type="submit" [disabled] = "commentForm.controls.comment.errors || !commentForm.controls.comment.dirty"class="btn btn-success">Post</button>
+                        </form>
+                    </div>
+                    <div *ngIf="!loggedIn">
+                        Oops. It seems like you didn't log in.
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div *ngIf="authStatus">
+        <button type="button" class="btn btn-primary">Edit</button>
+        <button type="button" class="btn btn-danger">Delete</button>
+    </div>         
 </div>

@@ -8,30 +8,32 @@ const router = express.Router();
 router.use((req,res,next) => {
     const token = req.headers.authtoken;
     if(token){
-        jwt.verify(token,config.secret,(err, decoded) => {
+        jwt.verify(token,'secret',(err, decoded) => {
             if(err){
                 res.json({success: false, message: err});
             }else{
                 req.decoded = decoded;
-                next();
             }
         })
-    }else{
-        res.json({success: false, message: 'No token provided!'});
     }
+    next();
 })
 
 router.get('/:username',(req,res) => {
-    User.findById(req.decoded.userId,(err,user) =>{
+    User.findOne({username:req.params.username},(err,user) =>{
         if(err){
             res.json({success: false, message: err});
         }else{
             if(user){
-                if(user.active){
-                    res.json({success: true, username:user.username,email:user.email});
+                if(req.decoded){
+                    if(user._id == req.decoded.userId){
+                        res.json({username:user.username,email:user.email,auth:true});
+                    }else{
+                        res.json({username:user.username,email:user.email,auth:false});
+                    }
                 }else{
-                    res.json({success: false, message: 'Please verify your account first throught the link in your email inbox!'});
-                }    
+                    res.json({username:user.username,email:user.email,auth:false});
+                }
             }else{
                 res.json({success: false, message: 'User not found!'});
             }

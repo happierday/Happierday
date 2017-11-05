@@ -3,5 +3,9 @@
         <h1 class = "page-header">profile</h1>
             <p>username: {{username}}</p>
             <p>Email: {{email}}</p>
+        <div *ngIf="authStatus">
+            <button type="button" class="btn btn-primary">Edit</button>
+            <button type="button" class="btn btn-danger">Delete Account</button>
+        </div>
     </div>
 </div>
