@@ -381,7 +381,6 @@ var JokeDetailComponent = (function () {
         this.formBuilder = formBuilder;
         this.jokeService.getJokeDetail(this.router.url.split('/')[2]).subscribe(function (res) {
             _this.response = JSON.parse(JSON.stringify(res));
-            console.log(_this.response);
             _this.jokeDetail = _this.response.joke;
             _this.authStatus = _this.response.auth;
         });
