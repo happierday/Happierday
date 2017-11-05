@@ -2,8 +2,6 @@
 
 MEAN stack project
 
-deployment url: https://happierday.herokuapp.com
-
 Install node and mongodb
 
 npm install nodemon and @angular-cli globally
