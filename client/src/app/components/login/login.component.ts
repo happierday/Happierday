@@ -5,9 +5,9 @@ import { LoginService } from '../../services/login/login.service';
 import { AuthGuardService } from '../../services/auth/auth-guard.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
     userForm: FormGroup;
@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     messageClass;
     response;
     url;
+    state = 3;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -33,14 +34,7 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-        // if(this.authGuardService.redirectUrl){
-        //     this.message = 'You must log in before viewing that page';
-        //     this.messageClass = 'alert alert-danger';
-        //     this.url = this.authGuardService.redirectUrl;
-        //     this.authGuardService.redirectUrl = undefined;
-        // }
-    }
+    ngOnInit() {}
 
     disableForm(){
         this.userForm.controls['username'].disable();

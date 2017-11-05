@@ -1,0 +1,12 @@
+<div class = "container">
+    <div class="card text-center" style="height: 20rem; width: 50rem">
+        <div class="card-body" for="flashcard">
+            <section *ngIf="!side" class = "front">
+                <h1>front</h1>
+            </section>
+            <section *ngIf="side" class = "back">
+                <h1>back</h1>
+            </section>
+        </div>
+    </div>
+</div>

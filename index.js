@@ -18,9 +18,9 @@ mongoose.connect(config.url,(err)=>{
 const app = express();
 
 //for development only
-// app.use(cors({
-//     origin: 'http://localhost:4200'
-// }));
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
 
 //add midware bodyParser
 app.use(bodyParser.json());

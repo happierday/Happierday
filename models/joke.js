@@ -50,8 +50,14 @@ const jokeSchema = new Schema({
     content: { type: String, required: true, validate: contentValidator },
     ref: { type: String, required:true, unique:true },
     category: { type: String, required: true },
-    likes: { type: Number, default: 0 },
-    dislikes: { type: Number, default: 0 },
+    likes:[{
+        userId: Number,
+        username: String
+    }],
+    dislikes: [{
+        userId: Number,
+        username: String   
+    }],
     createdAt: { type: Date, required: true }
 });
 

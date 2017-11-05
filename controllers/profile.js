@@ -1,23 +1,10 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const config = require('../config/config');
+const auth = require('./auth');
 const User = require('../models/userProfile');
 
 const router = express.Router();
 
-router.use((req,res,next) => {
-    const token = req.headers.authtoken;
-    if(token){
-        jwt.verify(token,'secret',(err, decoded) => {
-            if(err){
-                res.json({success: false, message: err});
-            }else{
-                req.decoded = decoded;
-            }
-        })
-    }
-    next();
-})
+auth(router);
 
 router.get('/:username',(req,res) => {
     User.findOne({username:req.params.username},(err,user) =>{

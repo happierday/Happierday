@@ -49,13 +49,17 @@
             </div>
         </div>
     </div>
-    <div>
-        <ul *ngFor = "let joke of jokes">
-            <li>
-                <a routerLink="/jokes/{{joke.ref}}">{{joke.title}}</a>
-                <a routerLink="/profile/{{joke.username}}">{{joke.username}}</a>
-            </li>
-        </ul>
+    <div class = "jokes" *ngFor = "let joke of jokes">
+        <div class="card">
+            <div class="container">
+                <h4><b>{{joke.title}}</b></h4> 
+                <div class="modal-footer">
+                    <a routerLink="/jokes/{{joke.ref}}">
+                        <button type="button" class="btn btn-primary">View Details</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

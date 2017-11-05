@@ -1,47 +1,25 @@
 const Joke = require('../models/joke');
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const config = require('../config/config');
 const User = require('../models/userProfile');
+const auth = require('./auth');
 const router = express.Router();
-//authenticate user
 
+//get all blog
 router.get('/',(req,res)=>{
-    let jokes = []
-    Joke.find({}, (err,snap) => {
+    Joke.find({}, (err,jokes) => {
         if(err){
             res.json({success:  false, message: err });
         }else{
-            if(snap){
-                snap.forEach((joke) => {
-                    let ref = {
-                        title: joke.title,
-                        username: joke.username,
-                        ref: joke.ref
-                    }
-                    jokes.push(ref);
-                })
+            if(jokes){
                 res.send(jokes);
             }else{
                 res.json({ success: false, message: "Opps!" });
             }
         }
-    })
+    }).sort({ '_id': -1});
 })
 
-router.use((req,res,next) => {
-    const token = req.headers.authtoken;
-    if(token){
-        jwt.verify(token,'secret',(err, decoded) => {
-            if(err){
-                res.json({success: false, message: err});
-            }else{
-                req.decoded = decoded;
-            }
-        })
-    }
-    next();
-})
+auth(router);
 
 router.get('/:title',(req,res) => {
     if(!req.params.title){

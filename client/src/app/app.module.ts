@@ -19,6 +19,8 @@ import { JokeComponent } from './components/joke/joke.component';
 import { JokesService } from './services/jokes/jokes.service';
 import { JokeDetailComponent } from './components/joke-detail/joke-detail.component';
 import { ProfileService } from './services/profile/profile.service';
+import { GamesComponent } from './components/games/games.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -30,13 +32,15 @@ import { ProfileService } from './services/profile/profile.service';
         ProfileComponent,
         VerifyComponent,
         JokeComponent,
-        JokeDetailComponent
+        JokeDetailComponent,
+        GamesComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        BrowserAnimationsModule
     ],
     providers: [
         SignUpService,

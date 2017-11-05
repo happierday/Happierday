@@ -9,6 +9,7 @@ import { NonauthService } from './services/auth/nonauth.service';
 import { VerifyComponent } from './components/verify/verify.component';
 import { JokeComponent } from './components/joke/joke.component';
 import { JokeDetailComponent } from './components/joke-detail/joke-detail.component';
+import { GamesComponent } from './components/games/games.component';
 
 const appRoutes: Routes = [
     {
@@ -18,6 +19,10 @@ const appRoutes: Routes = [
     {
         path: 'jokes',
         component: JokeComponent
+    },
+    {
+        path: 'guess',
+        component: GamesComponent
     },
     {
         path: 'jokes/:title',
@@ -52,15 +57,16 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
+    imports: [
       //deployment
-      RouterModule.forRoot(appRoutes,{useHash:true})
+      //RouterModule.forRoot(appRoutes,{useHash:true})
     // //development
-    // RouterModule.forRoot(appRoutes)
-  ],
-  exports: [
-      RouterModule
-  ]
+        RouterModule.forRoot(appRoutes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class AppRoutingModule{
+    
 }
