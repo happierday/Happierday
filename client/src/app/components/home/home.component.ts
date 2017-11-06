@@ -17,7 +17,9 @@ export class HomeComponent implements OnInit {
     ) { }
 
 
-
+    reload(){
+        location.reload();
+    }
     ngOnInit() {
         this.jokesService.getJokes().subscribe((res) => {
             this.jokes = JSON.parse(JSON.stringify(res));
