@@ -19,6 +19,7 @@ export class JokeDetailComponent implements OnInit {
         private formBuilder: FormBuilder
     ) { 
         this.createForm();
+        location.reload();
     }
      createForm(){
         this.commentForm = this.formBuilder.group({

@@ -389,6 +389,7 @@ var JokeDetailComponent = (function () {
         this.jokeService = jokeService;
         this.formBuilder = formBuilder;
         this.createForm();
+        location.reload();
     }
     JokeDetailComponent.prototype.createForm = function () {
         this.commentForm = this.formBuilder.group({
@@ -702,12 +703,12 @@ var NewPostComponent = (function () {
             username: localStorage.getItem('username')
         };
         this.newPostService.newPost(form).subscribe(function (res) {
-            console.log(res);
             _this.response = JSON.parse(JSON.stringify(res));
             _this.message = _this.response.message;
             if (_this.response.success) {
                 _this.messageClass = 'alert alert-success';
                 setTimeout(function () {
+                    location.reload();
                     _this.router.navigate(['/home']);
                 }, 1000);
             }
