@@ -21,8 +21,7 @@ export class NavbarComponent implements OnInit {
     onLogOut(){
         this.authService.logOut();
         setTimeout(() => {
-            location.reload();
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
         }, 1000);
     }
 }
