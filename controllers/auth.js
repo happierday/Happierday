@@ -5,7 +5,7 @@ module.exports = ((router) =>{
     router.use((req,res,next) => {
         const token = req.headers.authtoken;
         if(token){
-            jwt.verify(token,'secret',(err, decoded) => {
+            jwt.verify(token,config.secret,(err, decoded) => {
                 if(err){
                     res.json({success: false, message: err});
                 }else{

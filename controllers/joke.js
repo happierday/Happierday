@@ -5,19 +5,6 @@ const auth = require('./auth');
 const router = express.Router();
 
 //get all blog
-router.get('/',(req,res)=>{
-    Joke.find({}, (err,jokes) => {
-        if(err){
-            res.json({success:  false, message: err });
-        }else{
-            if(jokes){
-                res.send(jokes);
-            }else{
-                res.json({ success: false, message: "Opps!" });
-            }
-        }
-    }).sort({ '_id': -1});
-})
 
 auth(router);
 
@@ -57,35 +44,6 @@ router.get('/:title',(req,res) => {
     }
 })
 
-router.post('/',(req,res)=>{
-    if(!req.body.username){
-        res.json({success: false, message: 'Please Log In First'})
-    }else{
-        if(!req.body.title){
-            res.json({success:  false, message: 'You must provide a title'});
-        }else{
-            if(!req.body.content){
-                res.json({success: false, message: 'You must provide some content'});
-            }else{
-                let date = new Date();
-                const joke = new Joke({
-                    username: req.body.username,
-                    title: req.body.title,
-                    ref: req.body.title.replace(/[\W_]+/g,"-"),
-                    content: req.body.content,
-                    category: 'jokes',
-                    createdAt: new Date()
-                })
-                joke.save((err) =>{
-                    if(err){
-                        res.json({success:false, message: err});
-                    }else{
-                        res.json({success:true, message: 'Posted'});
-                    }
-                })
-            }
-        }
-    }
-})
+
 
 module.exports = router;

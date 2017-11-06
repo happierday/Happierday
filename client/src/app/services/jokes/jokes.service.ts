@@ -10,12 +10,8 @@ export class JokesService {
         private http: HttpClient
     ) { }
 
-    sendPost(form){
-        return this.http.post(this.authService.serverDomain + '/jokes', form);
-    }
-
     getJokes(){
-        return this.http.get(this.authService.serverDomain + '/jokes');
+        return this.http.get(this.authService.serverDomain);
     }
 
     getJokeDetail(title){

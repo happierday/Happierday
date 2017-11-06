@@ -1,34 +1,22 @@
-
 <div class="jumbotron">
     <h1>Happierday</h1>
     <p class="lead">A place where you can share your happiness with other</p>
     <p *ngIf="!authService.loggedIn()">
         <a class="btn btn-lg btn-success" routerLink="/signup" role="button">Get started today</a>
     </p>
+    <p *ngIf="authService.loggedIn()">
+        <a class="btn btn-lg btn-success" routerLink="/newpost" role="button">New Post</a>
+    </p>
 </div>
 
-<div class="container">
-    <header class="masthead">
-        <nav class="navbar navbar-expand-md navbar-light bg-light rounded mb-3">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav text-md-center nav-justified w-100">
-                    <li class="nav-item active">
-                        <a class="nav-link" routerLink="/jokes">Jokes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/quotes">Quotes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/guess">guess</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/debate">Debate</a>
-                    </li>
-                </ul>
+<div class="row">
+    <div class="col-sm-6" *ngFor="let joke of jokes">
+        <div class="card text-center">
+            <div class="card-body">
+                <h4 class="card-title">{{ joke.title }}</h4>
+                <p class="card-text">{{ joke.content.substring(0,joke.content.length/2)}}...</p>
+                <a routerLink="/jokes/{{joke.ref}}" class="btn btn-primary">View Detail</a>
             </div>
-        </nav>
-    </header>
+        </div>
+    </div>
 </div>

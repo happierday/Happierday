@@ -1,28 +1,21 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { VerifyComponent } from './components/verify/verify.component';
+import { JokeDetailComponent } from './components/joke-detail/joke-detail.component';
+import { NewPostComponent } from './components/new-post/new-post.component';
+
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { NonauthService } from './services/auth/nonauth.service';
-import { VerifyComponent } from './components/verify/verify.component';
-import { JokeComponent } from './components/joke/joke.component';
-import { JokeDetailComponent } from './components/joke-detail/joke-detail.component';
-import { GamesComponent } from './components/games/games.component';
 
 const appRoutes: Routes = [
     {
         path:  '',
         component: HomeComponent
-    },
-    {
-        path: 'jokes',
-        component: JokeComponent
-    },
-    {
-        path: 'guess',
-        component: GamesComponent
     },
     {
         path: 'jokes/:title',
@@ -32,6 +25,10 @@ const appRoutes: Routes = [
         path: 'signup',
         component: RegisterComponent,
         canActivate: [NonauthService]
+    },
+    {
+        path: 'newpost',
+        component: NewPostComponent
     },
     {
         path: 'logout',
@@ -58,10 +55,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-      //deployment
-      RouterModule.forRoot(appRoutes,{useHash:true})
-    // //development
-        //RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes)
     ],
     exports: [
         RouterModule

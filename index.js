@@ -18,9 +18,9 @@ mongoose.connect(config.url,(err)=>{
 const app = express();
 
 //for development only
-// app.use(cors({
-//     origin: 'http://localhost:4200'
-// }));
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
 
 //add midware bodyParser
 app.use(bodyParser.json());
@@ -32,12 +32,16 @@ const login = require('./controllers/login');
 const profile = require('./controllers/profile');
 const verify = require('./controllers/verify');
 const jokes = require('./controllers/joke');
+const newPost = require('./controllers/newPost');
+const home = require('./controllers/home');
 
 app.use('/signup',signup);
 app.use('/login',login);
 app.use('/profile',profile);
 app.use('/verify',verify);
 app.use('/jokes',jokes);
+app.use('/newpost',newPost);
+app.use('/',home);
 
 app.use(express.static(__dirname + '/client/dist/'));
 
