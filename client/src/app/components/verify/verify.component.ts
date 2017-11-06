@@ -26,11 +26,12 @@ export class VerifyComponent implements OnInit {
             this.response = JSON.parse(JSON.stringify(res));
             this.message = this.response.message;
             if(this.response.success){
-                this.signUpService.storeUser(this.response.username,this.response.token);
+                this.signUpService.storeUser(this.response.token,this.response.username);
                 localStorage.removeItem('hash');
                 this.messageClass = 'alert alert-success';
                 setTimeout(() => {
-                    this.router.navigate(['/profile/' + this.response.username]);                    
+                    location.reload();
+                    this.router.navigate(['/home']);                    
                 },2000);
             }else{
                 this.messageClass = 'alert alert-danger';

@@ -54,7 +54,7 @@ export class NewPostComponent implements OnInit {
             if(this.response.success){
                 this.messageClass = 'alert alert-success';
                 setTimeout(() => {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/home']);
                 }, 1000);    
             }else{
                 this.messageClass = 'alert alert-danger'

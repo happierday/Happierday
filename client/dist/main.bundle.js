@@ -516,7 +516,7 @@ var LoginComponent = (function () {
                         _this.router.navigate([_this.url]);
                     }
                     else {
-                        _this.router.navigate(['/']);
+                        _this.router.navigate(['/home']);
                     }
                 }, 1000);
             }
@@ -701,7 +701,7 @@ var NewPostComponent = (function () {
             if (_this.response.success) {
                 _this.messageClass = 'alert alert-success';
                 setTimeout(function () {
-                    _this.router.navigate(['/']);
+                    _this.router.navigate(['/home']);
                 }, 1000);
             }
             else {
@@ -1034,11 +1034,12 @@ var VerifyComponent = (function () {
             _this.response = JSON.parse(JSON.stringify(res));
             _this.message = _this.response.message;
             if (_this.response.success) {
-                _this.signUpService.storeUser(_this.response.username, _this.response.token);
+                _this.signUpService.storeUser(_this.response.token, _this.response.username);
                 localStorage.removeItem('hash');
                 _this.messageClass = 'alert alert-success';
                 setTimeout(function () {
-                    _this.router.navigate(['/profile/' + _this.response.username]);
+                    location.reload();
+                    _this.router.navigate(['/home']);
                 }, 2000);
             }
             else {
@@ -1144,8 +1145,8 @@ var AuthService = (function () {
         });
     };
     AuthService.prototype.storeUser = function (token, username) {
-        localStorage.setItem('username', username);
         localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
     };
     AuthService.prototype.loggedIn = function () {
         if (Object(__WEBPACK_IMPORTED_MODULE_2_angular2_jwt__["tokenNotExpired"])()) {

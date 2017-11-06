@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
                     if(this.url){
                         this.router.navigate([this.url]);
                     }else{
-                        this.router.navigate(['/']);
+                        this.router.navigate(['/home']);
                     }   
                 },1000)
             }else{

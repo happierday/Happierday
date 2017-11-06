@@ -18,8 +18,8 @@ export class AuthService {
     }
     
     storeUser(token,username){
-        localStorage.setItem('username',username);
         localStorage.setItem('token',token);
+        localStorage.setItem('username',username);
     }
 
     loggedIn(){
