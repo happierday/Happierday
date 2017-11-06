@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit {
     ) { }
     
     ngOnInit() {
-        location.reload();
         this.profileService.getProfile(this.router.url.split('/')[2]).subscribe(res => {
             this.result = JSON.parse(JSON.stringify(res));
             this.authStatus = this.result.auth;

@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        location.reload();
+        
     }
 
     disableForm(){
@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
                 this.messageClass = 'alert alert-success';
                 this.loginService.storeUser(this.response.token,user.username);
                 setTimeout(()=>{
+                    location.reload();
                     if(this.url){
                         this.router.navigate([this.url]);
                     }else{

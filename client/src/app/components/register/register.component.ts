@@ -134,7 +134,6 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        location.reload();
     }
 
 }

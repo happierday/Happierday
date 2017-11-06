@@ -18,8 +18,8 @@ export class JokeDetailComponent implements OnInit {
         private jokeService: JokesService,
         private formBuilder: FormBuilder
     ) { 
-        
-     }
+        this.createForm();
+    }
      createForm(){
         this.commentForm = this.formBuilder.group({
             comment: ['',Validators.compose([
@@ -30,7 +30,6 @@ export class JokeDetailComponent implements OnInit {
         })
     }
     ngOnInit() {
-        location.reload();
         this.jokeService.getJokeDetail(this.router.url.split('/')[2]).subscribe((res) => {
             this.response = JSON.parse(JSON.stringify(res));
             this.jokeDetail = this.response.joke;

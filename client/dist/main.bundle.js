@@ -388,6 +388,7 @@ var JokeDetailComponent = (function () {
         this.router = router;
         this.jokeService = jokeService;
         this.formBuilder = formBuilder;
+        this.createForm();
     }
     JokeDetailComponent.prototype.createForm = function () {
         this.commentForm = this.formBuilder.group({
@@ -400,7 +401,6 @@ var JokeDetailComponent = (function () {
     };
     JokeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        location.reload();
         this.jokeService.getJokeDetail(this.router.url.split('/')[2]).subscribe(function (res) {
             _this.response = JSON.parse(JSON.stringify(res));
             _this.jokeDetail = _this.response.joke;
@@ -489,7 +489,6 @@ var LoginComponent = (function () {
         });
     };
     LoginComponent.prototype.ngOnInit = function () {
-        location.reload();
     };
     LoginComponent.prototype.disableForm = function () {
         this.userForm.controls['username'].disable();
@@ -514,6 +513,7 @@ var LoginComponent = (function () {
                 _this.messageClass = 'alert alert-success';
                 _this.loginService.storeUser(_this.response.token, user.username);
                 setTimeout(function () {
+                    location.reload();
                     if (_this.url) {
                         _this.router.navigate([_this.url]);
                     }
@@ -785,7 +785,6 @@ var ProfileComponent = (function () {
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
-        location.reload();
         this.profileService.getProfile(this.router.url.split('/')[2]).subscribe(function (res) {
             _this.result = JSON.parse(JSON.stringify(res));
             _this.authStatus = _this.result.auth;
@@ -967,7 +966,6 @@ var RegisterComponent = (function () {
         });
     };
     RegisterComponent.prototype.ngOnInit = function () {
-        location.reload();
     };
     return RegisterComponent;
 }());
