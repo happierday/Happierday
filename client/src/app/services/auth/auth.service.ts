@@ -6,7 +6,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class AuthService {
     header;
     username;
-    serverDomain = "https://happierday.herokuapp.com";
+    serverDomain = "http://localhost:8000";
     constructor(
         private http: HttpClient,
     ) { }
