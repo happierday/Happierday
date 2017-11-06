@@ -7,9 +7,9 @@ export class AuthService {
     header;
     username;
     //deployment
-    //serverDomain =  "https://happierday.herokuapp.com";
+    serverDomain =  "https://happierday.herokuapp.com";
     // // development
-    serverDomain =  "http://localhost:8000";
+    //serverDomain =  "http://localhost:8000";
     constructor(
         private http: HttpClient,
     ) { }
