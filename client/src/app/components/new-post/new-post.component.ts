@@ -49,7 +49,6 @@ export class NewPostComponent implements OnInit {
             username: localStorage.getItem('username')
         }
         this.newPostService.newPost(form).subscribe(res => {
-            console.log(res);
             this.response = JSON.parse(JSON.stringify(res));
             this.message = this.response.message;
             if(this.response.success){

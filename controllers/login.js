@@ -24,7 +24,7 @@ router.post('/',(req,res)=>{
                     if(user){
                         if(user.active){
                             if(validatePassword(req.body.password,user.password)){
-                                const token = jwt.sign({userId: user._id},config.secret,{ expiresIn: '10h' });
+                                const token = jwt.sign({userId: user._id},'secret',{ expiresIn: '10h' });
                                 res.json({success: true, message: 'Loged In',token:token});
                             }else{
                                 res.json({success: false, message: 'Password does not match'});
