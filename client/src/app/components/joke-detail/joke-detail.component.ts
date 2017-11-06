@@ -30,11 +30,11 @@ export class JokeDetailComponent implements OnInit {
         })
     }
     ngOnInit() {
+        location.reload();
         this.jokeService.getJokeDetail(this.router.url.split('/')[2]).subscribe((res) => {
             this.response = JSON.parse(JSON.stringify(res));
             this.jokeDetail = this.response.joke;
             this.authStatus = this.response.auth;
         })
-        console.log(this.jokeDetail)
     }
 }

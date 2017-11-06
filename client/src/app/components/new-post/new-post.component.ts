@@ -24,7 +24,9 @@ export class NewPostComponent implements OnInit {
         private newPostService: NewPostService
     ) { this.createForm() }
     
-    ngOnInit() {}
+    ngOnInit() {
+        location.reload();
+    }
 
     createForm(){
         this.postForm = this.formBuilder.group({

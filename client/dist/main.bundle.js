@@ -400,12 +400,12 @@ var JokeDetailComponent = (function () {
     };
     JokeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        location.reload();
         this.jokeService.getJokeDetail(this.router.url.split('/')[2]).subscribe(function (res) {
             _this.response = JSON.parse(JSON.stringify(res));
             _this.jokeDetail = _this.response.joke;
             _this.authStatus = _this.response.auth;
         });
-        console.log(this.jokeDetail);
     };
     return JokeDetailComponent;
 }());
@@ -488,7 +488,9 @@ var LoginComponent = (function () {
             password: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* Validators */].required],
         });
     };
-    LoginComponent.prototype.ngOnInit = function () { };
+    LoginComponent.prototype.ngOnInit = function () {
+        location.reload();
+    };
     LoginComponent.prototype.disableForm = function () {
         this.userForm.controls['username'].disable();
         this.userForm.controls['password'].disable();
@@ -596,8 +598,12 @@ var NavbarComponent = (function () {
     NavbarComponent.prototype.ngOnInit = function () {
     };
     NavbarComponent.prototype.onLogOut = function () {
+        var _this = this;
         this.authService.logOut();
-        this.router.navigate(['/']);
+        setTimeout(function () {
+            location.reload();
+            _this.router.navigate(['/home']);
+        }, 1000);
     };
     return NavbarComponent;
 }());
@@ -672,7 +678,9 @@ var NewPostComponent = (function () {
         this.newPostService = newPostService;
         this.createForm();
     }
-    NewPostComponent.prototype.ngOnInit = function () { };
+    NewPostComponent.prototype.ngOnInit = function () {
+        location.reload();
+    };
     NewPostComponent.prototype.createForm = function () {
         this.postForm = this.formBuilder.group({
             title: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* Validators */].compose([
@@ -777,6 +785,7 @@ var ProfileComponent = (function () {
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
+        location.reload();
         this.profileService.getProfile(this.router.url.split('/')[2]).subscribe(function (res) {
             _this.result = JSON.parse(JSON.stringify(res));
             _this.authStatus = _this.result.auth;
@@ -958,6 +967,7 @@ var RegisterComponent = (function () {
         });
     };
     RegisterComponent.prototype.ngOnInit = function () {
+        location.reload();
     };
     return RegisterComponent;
 }());
@@ -1027,6 +1037,7 @@ var VerifyComponent = (function () {
         this.verify();
     }
     VerifyComponent.prototype.ngOnInit = function () {
+        location.reload();
     };
     VerifyComponent.prototype.verify = function () {
         var _this = this;

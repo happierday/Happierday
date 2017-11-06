@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        location.reload();
+    }
 
     disableForm(){
         this.userForm.controls['username'].disable();
