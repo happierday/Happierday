@@ -21,6 +21,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.use(express.static(__dirname + '/client/dist/'));
+
 //require controllers
 const signup = require('./controllers/signup');
 const login = require('./controllers/login');
@@ -30,20 +32,22 @@ const jokes = require('./controllers/joke');
 const newPost = require('./controllers/newPost');
 const home = require('./controllers/home');
 
+
+
 app.use('/signup',signup);
 app.use('/login',login);
 app.use('/profile',profile);
 app.use('/verify',verify);
 app.use('/jokes',jokes);
 app.use('/newpost',newPost);
-app.use('/',home);
+app.use('/home',home);
 
-app.use(express.static(__dirname + '/client/dist/'));
-
-//bound with angular
 app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));
 })
+
+//bound with angular
+
 
 app.listen(port,() => {
     console.log('listening to ' + port);

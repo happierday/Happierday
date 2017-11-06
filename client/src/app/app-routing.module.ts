@@ -14,7 +14,7 @@ import { NonauthService } from './services/auth/nonauth.service';
 
 const appRoutes: Routes = [
     {
-        path:  '',
+        path:  'home',
         component: HomeComponent
     },
     {
@@ -49,7 +49,7 @@ const appRoutes: Routes = [
     },
     {
         path: '**',
-        component: HomeComponent,
+        redirectTo: '/home'
     }
 ];
 

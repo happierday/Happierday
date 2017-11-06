@@ -11,7 +11,7 @@ export class JokesService {
     ) { }
 
     getJokes(){
-        return this.http.get(this.authService.serverDomain);
+        return this.http.get(this.authService.serverDomain + '/home');
     }
 
     getJokeDetail(title){
