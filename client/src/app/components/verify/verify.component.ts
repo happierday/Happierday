@@ -17,7 +17,6 @@ export class VerifyComponent implements OnInit {
     ) { this.verify(); }
 
     ngOnInit() {
-        location.reload();
     }
 
     verify(){

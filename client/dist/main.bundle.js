@@ -679,7 +679,6 @@ var NewPostComponent = (function () {
         this.createForm();
     }
     NewPostComponent.prototype.ngOnInit = function () {
-        location.reload();
     };
     NewPostComponent.prototype.createForm = function () {
         this.postForm = this.formBuilder.group({
@@ -1035,7 +1034,6 @@ var VerifyComponent = (function () {
         this.verify();
     }
     VerifyComponent.prototype.ngOnInit = function () {
-        location.reload();
     };
     VerifyComponent.prototype.verify = function () {
         var _this = this;
