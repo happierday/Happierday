@@ -22,4 +22,18 @@ export class JokesService {
             return this.http.get(this.authService.serverDomain + '/jokes/' + title);
         }   
     }
+
+    likeEvent(title,username){
+        if(this.authService.loggedIn()){
+            this.authService.authUser();
+            return this.http.get(this.authService.serverDomain + '/like/' + title + '/' + username, {headers: this.authService.header});
+        }
+    }
+
+    dislikeEvent(title,username){
+        if(this.authService.loggedIn()){
+            this.authService.authUser();
+            return this.http.get(this.authService.serverDomain + '/dislike/' + title + '/' + username, {headers: this.authService.header});
+        }
+    }
 }
