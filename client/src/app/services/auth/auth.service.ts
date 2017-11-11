@@ -9,7 +9,8 @@ export class AuthService {
     serverDomain = "https://happierday.herokuapp.com";
     constructor(
         private http: HttpClient,
-    ) { }
+    ) { 
+    }
     authUser(){
         this.header = new HttpHeaders({
             'content-Type': 'application/json',
