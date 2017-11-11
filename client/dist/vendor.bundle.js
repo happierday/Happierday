@@ -1766,6 +1766,18 @@ Observable_1.Observable.fromPromise = fromPromise_1.fromPromise;
 
 /***/ }),
 
+/***/ "../../../../rxjs/add/operator/filter.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__("../../../../rxjs/Observable.js");
+var filter_1 = __webpack_require__("../../../../rxjs/operator/filter.js");
+Observable_1.Observable.prototype.filter = filter_1.filter;
+//# sourceMappingURL=filter.js.map
+
+/***/ }),
+
 /***/ "../../../../rxjs/add/operator/mergeMap.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1776,6 +1788,18 @@ var mergeMap_1 = __webpack_require__("../../../../rxjs/operator/mergeMap.js");
 Observable_1.Observable.prototype.mergeMap = mergeMap_1.mergeMap;
 Observable_1.Observable.prototype.flatMap = mergeMap_1.mergeMap;
 //# sourceMappingURL=mergeMap.js.map
+
+/***/ }),
+
+/***/ "../../../../rxjs/add/operator/pairwise.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var Observable_1 = __webpack_require__("../../../../rxjs/Observable.js");
+var pairwise_1 = __webpack_require__("../../../../rxjs/operator/pairwise.js");
+Observable_1.Observable.prototype.pairwise = pairwise_1.pairwise;
+//# sourceMappingURL=pairwise.js.map
 
 /***/ }),
 
@@ -3757,6 +3781,55 @@ exports.mergeMap = mergeMap;
 
 /***/ }),
 
+/***/ "../../../../rxjs/operator/pairwise.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var pairwise_1 = __webpack_require__("../../../../rxjs/operators/pairwise.js");
+/**
+ * Groups pairs of consecutive emissions together and emits them as an array of
+ * two values.
+ *
+ * <span class="informal">Puts the current value and previous value together as
+ * an array, and emits that.</span>
+ *
+ * <img src="./img/pairwise.png" width="100%">
+ *
+ * The Nth emission from the source Observable will cause the output Observable
+ * to emit an array [(N-1)th, Nth] of the previous and the current value, as a
+ * pair. For this reason, `pairwise` emits on the second and subsequent
+ * emissions from the source Observable, but not on the first emission, because
+ * there is no previous value in that case.
+ *
+ * @example <caption>On every click (starting from the second), emit the relative distance to the previous click</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var pairs = clicks.pairwise();
+ * var distance = pairs.map(pair => {
+ *   var x0 = pair[0].clientX;
+ *   var y0 = pair[0].clientY;
+ *   var x1 = pair[1].clientX;
+ *   var y1 = pair[1].clientY;
+ *   return Math.sqrt(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2));
+ * });
+ * distance.subscribe(x => console.log(x));
+ *
+ * @see {@link buffer}
+ * @see {@link bufferCount}
+ *
+ * @return {Observable<Array<T>>} An Observable of pairs (as arrays) of
+ * consecutive values from the source Observable.
+ * @method pairwise
+ * @owner Observable
+ */
+function pairwise() {
+    return pairwise_1.pairwise()(this);
+}
+exports.pairwise = pairwise;
+//# sourceMappingURL=pairwise.js.map
+
+/***/ }),
+
 /***/ "../../../../rxjs/operator/reduce.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5292,6 +5365,90 @@ var ObserveOnMessage = (function () {
 }());
 exports.ObserveOnMessage = ObserveOnMessage;
 //# sourceMappingURL=observeOn.js.map
+
+/***/ }),
+
+/***/ "../../../../rxjs/operators/pairwise.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Subscriber_1 = __webpack_require__("../../../../rxjs/Subscriber.js");
+/**
+ * Groups pairs of consecutive emissions together and emits them as an array of
+ * two values.
+ *
+ * <span class="informal">Puts the current value and previous value together as
+ * an array, and emits that.</span>
+ *
+ * <img src="./img/pairwise.png" width="100%">
+ *
+ * The Nth emission from the source Observable will cause the output Observable
+ * to emit an array [(N-1)th, Nth] of the previous and the current value, as a
+ * pair. For this reason, `pairwise` emits on the second and subsequent
+ * emissions from the source Observable, but not on the first emission, because
+ * there is no previous value in that case.
+ *
+ * @example <caption>On every click (starting from the second), emit the relative distance to the previous click</caption>
+ * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var pairs = clicks.pairwise();
+ * var distance = pairs.map(pair => {
+ *   var x0 = pair[0].clientX;
+ *   var y0 = pair[0].clientY;
+ *   var x1 = pair[1].clientX;
+ *   var y1 = pair[1].clientY;
+ *   return Math.sqrt(Math.pow(x0 - x1, 2) + Math.pow(y0 - y1, 2));
+ * });
+ * distance.subscribe(x => console.log(x));
+ *
+ * @see {@link buffer}
+ * @see {@link bufferCount}
+ *
+ * @return {Observable<Array<T>>} An Observable of pairs (as arrays) of
+ * consecutive values from the source Observable.
+ * @method pairwise
+ * @owner Observable
+ */
+function pairwise() {
+    return function (source) { return source.lift(new PairwiseOperator()); };
+}
+exports.pairwise = pairwise;
+var PairwiseOperator = (function () {
+    function PairwiseOperator() {
+    }
+    PairwiseOperator.prototype.call = function (subscriber, source) {
+        return source.subscribe(new PairwiseSubscriber(subscriber));
+    };
+    return PairwiseOperator;
+}());
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var PairwiseSubscriber = (function (_super) {
+    __extends(PairwiseSubscriber, _super);
+    function PairwiseSubscriber(destination) {
+        _super.call(this, destination);
+        this.hasPrev = false;
+    }
+    PairwiseSubscriber.prototype._next = function (value) {
+        if (this.hasPrev) {
+            this.destination.next([this.prev, value]);
+        }
+        else {
+            this.hasPrev = true;
+        }
+        this.prev = value;
+    };
+    return PairwiseSubscriber;
+}(Subscriber_1.Subscriber));
+//# sourceMappingURL=pairwise.js.map
 
 /***/ }),
 
@@ -75831,7 +75988,7 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 /* unused harmony export GuardsCheckEnd */
 /* unused harmony export GuardsCheckStart */
 /* unused harmony export NavigationCancel */
-/* unused harmony export NavigationEnd */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavigationEnd; });
 /* unused harmony export NavigationError */
 /* unused harmony export NavigationStart */
 /* unused harmony export ResolveEnd */
@@ -75840,11 +75997,11 @@ NoopAnimationsModule.ctorParameters = function () { return []; };
 /* unused harmony export RouteConfigLoadStart */
 /* unused harmony export RoutesRecognized */
 /* unused harmony export RouteReuseStrategy */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Router; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Router; });
 /* unused harmony export ROUTES */
 /* unused harmony export ROUTER_CONFIGURATION */
 /* unused harmony export ROUTER_INITIALIZER */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RouterModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return RouterModule; });
 /* unused harmony export provideRoutes */
 /* unused harmony export ChildrenOutletContexts */
 /* unused harmony export OutletContext */

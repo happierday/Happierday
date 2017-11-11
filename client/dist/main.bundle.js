@@ -96,10 +96,10 @@ var AppRoutingModule = (function () {
 AppRoutingModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */].forRoot(appRoutes, { useHash: true })
+            __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */].forRoot(appRoutes)
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_0__angular_router__["b" /* RouterModule */]
+            __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */]
         ]
     })
 ], AppRoutingModule);
@@ -139,17 +139,36 @@ module.exports = "<!--The content below is only a placeholder and can be replace
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_pairwise__ = __webpack_require__("../../../../rxjs/add/operator/pairwise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_pairwise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_pairwise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__("../../../../rxjs/add/operator/filter.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
 
 var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'app';
+    function AppComponent(router) {
+        this.router = router;
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.router.events
+            .filter(function (e) { return e instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* NavigationEnd */]; })
+            .pairwise()
+            .subscribe(function (e) {
+            localStorage.setItem('previousRouter', JSON.parse(JSON.stringify(e[0])).url);
+        });
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
@@ -157,9 +176,11 @@ AppComponent = __decorate([
         selector: 'app-root',
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.css")]
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object])
 ], AppComponent);
 
+var _a;
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
@@ -344,7 +365,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".card{\r\n    margin: auto;\r\n}\r\n\r\n#creator{\r\n    padding-top: 0.5em;\r\n    float: right;\r\n}", ""]);
 
 // exports
 
@@ -357,7 +378,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/joke-detail/joke-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class = \"container\">\r\n    <div class=\"jumbotron\">\r\n        <div class=\"card\" style=\"width: 50rem;\">\r\n            <div class=\"card-header bg-transparent\">{{ jokeDetail.title }}</div>\r\n            <div class=\"card-body\">\r\n                <h4 class=\"card-title\">Success card title</h4>\r\n                <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>\r\n            </div>\r\n            <div class=\"card-footer bg-transparent\">Footer</div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<!-- <div class = \"container\">\r\n    <p>Title: {{jokeDetail?.title}}</p>\r\n    <p>content: {{jokeDetail?.content}}</p>\r\n    <p>createdAt: {{jokeDetail?.createdAt}}</p>\r\n    <div *ngIf=\"!authStatus\">\r\n        <p>username: {{jokeDetail?.username}}</p>\r\n        <p>likes: {{jokeDetail?.likes}}</p>\r\n        <p>dislikes: {{jokeDetail?.dislikes}}</p>\r\n        <button type=\"button\" class=\"btn btn-primary\">Like</button>\r\n        <button type=\"button\" class=\"btn btn-danger\">Dislike</button>\r\n        <button class=\"btn btn-primary\" type=\"button\" data-toggle=\"collapse\" data-target=\"#newComment\" aria-expanded=\"false\" aria-controls=\"collapseExample\">\r\n                New Comment\r\n            </button>\r\n            <div class=\"collapse\" id=\"newComment\">\r\n                <div class = \"jumbotron\">\r\n                    <div *ngIf=\"loggedIn\">\r\n                        <form [formGroup] = \"commentForm\" (submit) = \"creteNewComment()\">\r\n                            <div class=\"form-group\">\r\n                                <label for=\"comment\">comment</label>\r\n                                <input type=\"text\" class=\"form-control\"  formControlName = \"comment\">\r\n                                <textarea class=\"form-control\"rows=\"5\" formControlName = \"content\"></textarea>\r\n                                <div *ngIf=\"commentForm.controls.comment.errors && commentForm.controls.comment.dirty\" class=\"alert alert-danger\">\r\n                                    <div *ngIf=\"commentForm.controls.comment.errors?.required\">\r\n                                        comment is required.\r\n                                    </div>\r\n                                    <div *ngIf=\"commentForm.controls.comment.errors?.minlength && !commentForm.controls.comment.errors?.required\">\r\n                                        comment should have at least 5 characters.\r\n                                    </div>\r\n                                    <div *ngIf=\"commentForm.controls.comment.errors?.maxlength && !commentForm.controls.comment.errors?.required\">\r\n                                        comment should not exceed 1000 characters long.\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                            <p>Character Left: {{1000-postForm.get('comment').value.length}}</p>\r\n                            <button type=\"submit\" [disabled] = \"commentForm.controls.comment.errors || !commentForm.controls.comment.dirty\"class=\"btn btn-success\">Post</button>\r\n                        </form>\r\n                    </div>\r\n                    <div *ngIf=\"!loggedIn\">\r\n                        Oops. It seems like you didn't log in.\r\n                    </div>\r\n                </div>\r\n            </div>\r\n    </div>\r\n    <div *ngIf=\"authStatus\">\r\n        <button type=\"button\" class=\"btn btn-primary\">Edit</button>\r\n        <button type=\"button\" class=\"btn btn-danger\">Delete</button>\r\n    </div>        \r\n</div> -->\r\n"
+module.exports = "<div class = \"row  show-hide-message\">\r\n    <div [ngClass] =\"messageClass\">\r\n        {{ message }}\r\n    </div>\r\n</div>\r\n\r\n<div class=\"card\" style=\"width: 50rem;\">\r\n    <div class=\"card-header bg-transparent\">\r\n        <h2>{{ jokeDetail?.title }}</h2>\r\n    </div>\r\n    <div class=\"card-body\">\r\n        <p class=\"card-text\">{{ jokeDetail?.content }}</p>\r\n    </div>\r\n    <div class=\"card-footer bg-transparent\">\r\n        <div *ngIf=\"!authStatus\">\r\n            <button [disabled] = \"likeOrDislike\" type=\"button\" class=\"btn btn-primary\" (click) = \"likes()\">Like: {{ jokeDetail?.likes.length }}</button>\r\n            <button [disabled] = \"likeOrDislike\" type=\"button\" class=\"btn btn-danger\" (click) = \"dislikes()\">Dislike: {{ jokeDetail?.dislikes.length }}</button>\r\n            <button class=\"btn btn-primary\" type=\"button\" data-toggle=\"collapse\" data-target=\"#newComment\" aria-expanded=\"false\" aria-controls=\"collapseExample\">\r\n                New Comment\r\n            </button>\r\n            <div id =\"creator\">\r\n                <h6>Created By <a routerLink=\"/profile/{{ jokeDetail?.username }}\">{{ jokeDetail?.username }}</a></h6>\r\n            </div>\r\n        </div>\r\n        <div *ngIf=\"authStatus\">\r\n            <button type=\"button\" class=\"btn btn-primary\">Edit</button>\r\n            <button type=\"button\" class=\"btn btn-danger\">Delete</button>\r\n        </div>\r\n        <div class=\"collapse\" id=\"newComment\">\r\n            <div class = \"jumbotron\">\r\n                <div *ngIf=\"loggedIn\">\r\n                    <form [formGroup] = \"commentForm\" (submit) = \"creteNewComment()\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"comment\">comment</label>\r\n                            <input type=\"text\" class=\"form-control\"  formControlName = \"comment\">\r\n                            <textarea class=\"form-control\"rows=\"5\" formControlName = \"content\"></textarea>\r\n                            <div *ngIf=\"commentForm.controls.comment.errors && commentForm.controls.comment.dirty\" class=\"alert alert-danger\">\r\n                                <div *ngIf=\"commentForm.controls.comment.errors?.required\">\r\n                                    comment is required.\r\n                                </div>\r\n                                <div *ngIf=\"commentForm.controls.comment.errors?.minlength && !commentForm.controls.comment.errors?.required\">\r\n                                    comment should have at least 5 characters.\r\n                                </div>\r\n                                <div *ngIf=\"commentForm.controls.comment.errors?.maxlength && !commentForm.controls.comment.errors?.required\">\r\n                                    comment should not exceed 1000 characters long.\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <p>Character Left: {{1000-postForm.get('comment').value.length}}</p>\r\n                        <button type=\"submit\" [disabled] = \"commentForm.controls.comment.errors || !commentForm.controls.comment.dirty\"class=\"btn btn-success\">Post</button>\r\n                    </form>\r\n                </div>\r\n                <div *ngIf=\"!loggedIn\">\r\n                    Oops. It seems like you didn't log in.\r\n                </div>\r\n            </div>\r\n        </div>  \r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -385,9 +406,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var JokeDetailComponent = (function () {
     function JokeDetailComponent(router, jokeService, formBuilder) {
+        var _this = this;
         this.router = router;
         this.jokeService = jokeService;
         this.formBuilder = formBuilder;
+        this.likeOrDislike = false;
+        this.jokeService.getJokeDetail(this.router.url.split('/')[2]).subscribe(function (res) {
+            _this.response = JSON.parse(JSON.stringify(res));
+            _this.jokeDetail = _this.response.joke;
+            _this.authStatus = _this.response.auth;
+        });
         this.createForm();
     }
     JokeDetailComponent.prototype.createForm = function () {
@@ -400,12 +428,41 @@ var JokeDetailComponent = (function () {
         });
     };
     JokeDetailComponent.prototype.ngOnInit = function () {
+        this.username = localStorage.getItem('username');
+    };
+    JokeDetailComponent.prototype.likes = function () {
         var _this = this;
-        this.jokeService.getJokeDetail(this.router.url.split('/')[2]).subscribe(function (res) {
-            _this.response = JSON.parse(JSON.stringify(res));
-            _this.jokeDetail = _this.response.joke;
-            _this.authStatus = _this.response.auth;
-        });
+        if (this.username) {
+            this.jokeService.likeEvent(this.jokeDetail.ref, this.username).subscribe(function (res) {
+                _this.response = JSON.parse(JSON.stringify(res));
+                _this.jokeDetail = _this.response;
+                _this.likeOrDislike = true;
+            });
+        }
+        else {
+            this.message = 'Please Login first to perform like action!';
+            this.messageClass = 'alert alert-warning',
+                setTimeout(function () {
+                    _this.router.navigate(['/login']);
+                }, 2000);
+        }
+    };
+    JokeDetailComponent.prototype.dislikes = function () {
+        var _this = this;
+        if (this.username) {
+            this.jokeService.dislikeEvent(this.jokeDetail.ref, this.username).subscribe(function (res) {
+                _this.response = JSON.parse(JSON.stringify(res));
+                _this.jokeDetail = _this.response;
+                _this.likeOrDislike = true;
+            });
+        }
+        else {
+            this.message = 'Please Login first to perform like action!';
+            this.messageClass = 'alert alert-warning',
+                setTimeout(function () {
+                    _this.router.navigate(['/login']);
+                }, 2000);
+        }
     };
     return JokeDetailComponent;
 }());
@@ -415,7 +472,7 @@ JokeDetailComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/joke-detail/joke-detail.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/joke-detail/joke-detail.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__["a" /* JokesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__["a" /* JokesService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__["a" /* JokesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__["a" /* JokesService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object])
 ], JokeDetailComponent);
 
 var _a, _b, _c;
@@ -458,6 +515,9 @@ module.exports = "<div class=\"container\">\r\n    <div class=\"jumbotron\">\r\n
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_login_login_service__ = __webpack_require__("../../../../../src/app/services/login/login.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_auth_guard_service__ = __webpack_require__("../../../../../src/app/services/auth/auth-guard.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_pairwise__ = __webpack_require__("../../../../rxjs/add/operator/pairwise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_pairwise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_pairwise__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -472,12 +532,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var LoginComponent = (function () {
-    function LoginComponent(formBuilder, router, loginService, authGuardService) {
+    function LoginComponent(formBuilder, router, loginService, authGuardService, location) {
         this.formBuilder = formBuilder;
         this.router = router;
         this.loginService = loginService;
         this.authGuardService = authGuardService;
+        this.location = location;
         this.state = 3;
         this.logedIn = false;
         this.createForm();
@@ -513,9 +576,8 @@ var LoginComponent = (function () {
                 _this.messageClass = 'alert alert-success';
                 _this.loginService.storeUser(_this.response.token, user.username);
                 setTimeout(function () {
-                    location.reload();
-                    if (_this.url) {
-                        _this.router.navigate([_this.url]);
+                    if (localStorage.getItem('previousRouter')) {
+                        _this.router.navigate([localStorage.getItem('previousRouter')]);
                     }
                     else {
                         _this.router.navigate(['/home']);
@@ -537,10 +599,10 @@ LoginComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/login/login.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/login/login.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_login_login_service__["a" /* LoginService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_auth_guard_service__["a" /* AuthGuardService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_auth_auth_guard_service__["a" /* AuthGuardService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_login_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_login_login_service__["a" /* LoginService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_auth_auth_guard_service__["a" /* AuthGuardService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_auth_auth_guard_service__["a" /* AuthGuardService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__angular_common__["f" /* Location */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_common__["f" /* Location */]) === "function" && _e || Object])
 ], LoginComponent);
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=login.component.js.map
 
 /***/ }),
@@ -612,7 +674,7 @@ NavbarComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/navbar/navbar.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/navbar/navbar.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_auth_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_auth_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object])
 ], NavbarComponent);
 
 var _a, _b;
@@ -641,7 +703,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/new-post/new-post.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"newPost\">\r\n    <div class = \"jumbotron\">\r\n\r\n        <div class = \"row  show-hide-message\">\r\n            <div [ngClass] =\"messageClass\">\r\n                {{ message }}\r\n            </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"authService.loggedIn()\">\r\n            <form [formGroup] = \"postForm\" (submit) = \"createNewPost()\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"title\">Title</label>\r\n                    <input type=\"text\" class=\"form-control\"  formControlName = \"title\">\r\n                    <div *ngIf=\"postForm.controls.title.errors && postForm.controls.title.dirty\" class=\"alert alert-danger\">\r\n                        <div *ngIf=\"postForm.controls.title.errors?.required\">\r\n                            Title is required.\r\n                        </div>\r\n                        <div *ngIf=\"postForm.controls.title.errors?.minlength && !postForm.controls.title.errors?.required\">\r\n                            Title should have at least 5 characters.\r\n                        </div>\r\n                        <div *ngIf=\"postForm.controls.title.errors?.maxlength && !postForm.controls.title.errors?.required\">\r\n                            Title should not exceed 50 characters long.\r\n                        </div>\r\n                    </div>\r\n                    <label for=\"content\">What you want to post</label>\r\n                    <textarea class=\"form-control\"rows=\"5\" formControlName = \"content\"></textarea>\r\n                    <div *ngIf=\"postForm.controls.content.errors && postForm.controls.content.dirty\" class=\"alert alert-danger\">\r\n                        <div *ngIf=\"postForm.controls.content.errors?.required\">\r\n                            Content is required.\r\n                        </div>\r\n                        <div *ngIf=\"postForm.controls.content.errors?.minlength && !postForm.controls.content.errors?.required\">\r\n                            Post should have at least 50 characters.\r\n                        </div>\r\n                        <div *ngIf=\"postForm.controls.content.errors?.maxlength && !postForm.controls.content.errors?.required\">\r\n                            Post should not exceed 5000 characters long.\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <p>Character Left: {{5000-postForm.get('content').value.length}}</p>\r\n                <button type=\"submit\" [disabled] = \"postForm.controls.content.errors || (!postForm.controls.content.dirty && !postForm.controls.title.dirty) \"class=\"btn btn-success\">Post</button>\r\n            </form>\r\n        </div>\r\n        <div *ngIf=\"!authService.loggedIn()\" id = \"message\">\r\n            Oops. It seems like you didn't log in.\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div id=\"newPost\">\n    <div class = \"jumbotron\">\n\n        <div class = \"row  show-hide-message\">\n            <div [ngClass] =\"messageClass\">\n                {{ message }}\n            </div>\n        </div>\n\n        <div *ngIf=\"authService.loggedIn()\">\n            <form [formGroup] = \"postForm\" (submit) = \"createNewPost()\">\n                <div class=\"form-group\">\n                    <label for=\"title\">Title</label>\n                    <input type=\"text\" class=\"form-control\"  formControlName = \"title\">\n                    <div *ngIf=\"postForm.controls.title.errors && postForm.controls.title.dirty\" class=\"alert alert-danger\">\n                        <div *ngIf=\"postForm.controls.title.errors?.required\">\n                            Title is required.\n                        </div>\n                        <div *ngIf=\"postForm.controls.title.errors?.minlength && !postForm.controls.title.errors?.required\">\n                            Title should have at least 5 characters.\n                        </div>\n                        <div *ngIf=\"postForm.controls.title.errors?.maxlength && !postForm.controls.title.errors?.required\">\n                            Title should not exceed 50 characters long.\n                        </div>\n                    </div>\n                    <label for=\"content\">What you want to post</label>\n                    <textarea class=\"form-control\"rows=\"5\" formControlName = \"content\"></textarea>\n                    <div *ngIf=\"postForm.controls.content.errors && postForm.controls.content.dirty\" class=\"alert alert-danger\">\n                        <div *ngIf=\"postForm.controls.content.errors?.required\">\n                            Content is required.\n                        </div>\n                        <div *ngIf=\"postForm.controls.content.errors?.minlength && !postForm.controls.content.errors?.required\">\n                            Post should have at least 50 characters.\n                        </div>\n                        <div *ngIf=\"postForm.controls.content.errors?.maxlength && !postForm.controls.content.errors?.required\">\n                            Post should not exceed 5000 characters long.\n                        </div>\n                    </div>\n                </div>\n                <p>Character Left: {{5000-postForm.get('content').value.length}}</p>\n                <button type=\"submit\" [disabled] = \"postForm.controls.content.errors || (!postForm.controls.content.dirty && !postForm.controls.title.dirty) \"class=\"btn btn-success\">Post</button>\n            </form>\n        </div>\n        <div *ngIf=\"!authService.loggedIn()\" id = \"message\">\n            Oops. It seems like you didn't log in.\n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -723,7 +785,7 @@ NewPostComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/new-post/new-post.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/new-post/new-post.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_auth_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_auth_auth_service__["a" /* AuthService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_newPost_new_post_service__["a" /* NewPostService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_newPost_new_post_service__["a" /* NewPostService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_auth_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_auth_auth_service__["a" /* AuthService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__services_newPost_new_post_service__["a" /* NewPostService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__services_newPost_new_post_service__["a" /* NewPostService */]) === "function" && _d || Object])
 ], NewPostComponent);
 
 var _a, _b, _c, _d;
@@ -798,7 +860,7 @@ ProfileComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/profile/profile.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/profile/profile.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_profile_profile_service__["a" /* ProfileService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_profile_profile_service__["a" /* ProfileService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_profile_profile_service__["a" /* ProfileService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_profile_profile_service__["a" /* ProfileService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object])
 ], ProfileComponent);
 
 var _a, _b;
@@ -973,7 +1035,7 @@ RegisterComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/register/register.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/register/register.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_signup_signup_service__["a" /* SignUpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_signup_signup_service__["a" /* SignUpService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_signup_signup_service__["a" /* SignUpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_signup_signup_service__["a" /* SignUpService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _c || Object])
 ], RegisterComponent);
 
 var _a, _b, _c;
@@ -1061,7 +1123,7 @@ VerifyComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/verify/verify.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/verify/verify.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_signup_signup_service__["a" /* SignUpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_signup_signup_service__["a" /* SignUpService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_signup_signup_service__["a" /* SignUpService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_signup_signup_service__["a" /* SignUpService */]) === "function" && _b || Object])
 ], VerifyComponent);
 
 var _a, _b;
@@ -1110,7 +1172,7 @@ var AuthGuardService = (function () {
 }());
 AuthGuardService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object])
 ], AuthGuardService);
 
 var _a;
@@ -1215,7 +1277,7 @@ var NonauthService = (function () {
 }());
 NonauthService = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object])
 ], NonauthService);
 
 var _a;
@@ -1258,6 +1320,18 @@ var JokesService = (function () {
         }
         else {
             return this.http.get(this.authService.serverDomain + '/jokes/' + title);
+        }
+    };
+    JokesService.prototype.likeEvent = function (title, username) {
+        if (this.authService.loggedIn()) {
+            this.authService.authUser();
+            return this.http.get(this.authService.serverDomain + '/like/' + title + '/' + username, { headers: this.authService.header });
+        }
+    };
+    JokesService.prototype.dislikeEvent = function (title, username) {
+        if (this.authService.loggedIn()) {
+            this.authService.authUser();
+            return this.http.get(this.authService.serverDomain + '/dislike/' + title + '/' + username, { headers: this.authService.header });
         }
     };
     return JokesService;

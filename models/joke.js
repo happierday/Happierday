@@ -51,11 +51,11 @@ const jokeSchema = new Schema({
     ref: { type: String, required:true, unique:true },
     category: { type: String, required: true },
     likes:[{
-        userId: Number,
+        userId: String,
         username: String
     }],
     dislikes: [{
-        userId: Number,
+        userId: String,
         username: String   
     }],
     createdAt: { type: Date, required: true }

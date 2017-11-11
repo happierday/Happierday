@@ -17,6 +17,10 @@ mongoose.connect(config.url,(err)=>{
 
 const app = express();
 
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
+
 //add midware bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -31,8 +35,8 @@ const verify = require('./controllers/verify');
 const jokes = require('./controllers/joke');
 const newPost = require('./controllers/newPost');
 const home = require('./controllers/home');
-
-
+const like = require('./controllers/like');
+const dislike = require('./controllers/dislike');
 
 app.use('/signup',signup);
 app.use('/login',login);
@@ -40,14 +44,14 @@ app.use('/profile',profile);
 app.use('/verify',verify);
 app.use('/jokes',jokes);
 app.use('/newpost',newPost);
-app.use('/home',home);
+app.use('/like',like);
+app.use('/dislike',dislike);
+app.use('/',home);
 
+//bound with angular
 app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));
 })
-
-//bound with angular
-
 
 app.listen(port,() => {
     console.log('listening to ' + port);

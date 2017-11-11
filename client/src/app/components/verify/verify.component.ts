@@ -21,11 +21,10 @@ export class VerifyComponent implements OnInit {
 
     verify(){
         this.signUpService.verifyUser(localStorage.getItem('hash')).subscribe(res => {
-            
             this.response = JSON.parse(JSON.stringify(res));
             this.message = this.response.message;
             if(this.response.success){
-                this.signUpService.storeUser(this.response.token,this.response.username);
+                this.signUpService.storeUser(this.response.token,this.response.username,);
                 localStorage.removeItem('hash');
                 this.messageClass = 'alert alert-success';
                 setTimeout(() => {

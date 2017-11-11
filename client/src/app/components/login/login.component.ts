@@ -3,6 +3,8 @@ import { FormControl, FormGroup, FormBuilder , Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { AuthGuardService } from '../../services/auth/auth-guard.service';
+import { Location } from '@angular/common';
+import 'rxjs/add/operator/pairwise';
 
 @Component({
     selector: 'app-login',
@@ -21,8 +23,10 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private loginService: LoginService,
-        private authGuardService: AuthGuardService
+        private authGuardService: AuthGuardService,
+        private location: Location
     ) { 
+        
         this.logedIn = false;
         this.createForm();
     }
@@ -62,9 +66,8 @@ export class LoginComponent implements OnInit {
                 this.messageClass = 'alert alert-success';
                 this.loginService.storeUser(this.response.token,user.username);
                 setTimeout(()=>{
-                    location.reload();
-                    if(this.url){
-                        this.router.navigate([this.url]);
+                    if(localStorage.getItem('previousRouter')){
+                        this.router.navigate([localStorage.getItem('previousRouter')]);
                     }else{
                         this.router.navigate(['/home']);
                     }   
