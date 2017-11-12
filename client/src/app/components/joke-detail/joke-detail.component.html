@@ -13,8 +13,8 @@
         </div>
         <div class="card-footer bg-transparent">
             <div *ngIf="!authStatus">
-                <button type="button" class="btn btn-primary" (click) = "likes()">Like: {{ jokeDetail?.likes.length }}</button>
-                <button type="button" class="btn btn-danger" (click) = "dislikes()">Dislike: {{ jokeDetail?.dislikes.length }}</button>
+                <button [disabled] = "!authService.loggedIn()" type="button" class="btn btn-primary" (click) = "likes()">Like: {{ jokeDetail?.likes.length }}</button>
+                <button [disabled] = "!authService.loggedIn()" type="button" class="btn btn-danger" (click) = "dislikes()">Dislike: {{ jokeDetail?.dislikes.length }}</button>
                 <div id ="creator">
                     <h6>Created By <a routerLink="/profile/{{ jokeDetail?.username }}">{{ jokeDetail?.username }}</a></h6>
                 </div>
@@ -48,7 +48,7 @@
             </form>
         </div>
         <div *ngIf="!authService.loggedIn()">
-            Oops. It seems like you didn't log in.
+            Oops. It seems like you didn't log in, log in to comment the post.
         </div>
     </div>
     <div *ngFor = "let comment of jokeDetail?.comments">

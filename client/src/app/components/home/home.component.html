@@ -16,6 +16,7 @@
                 <h4 class="card-title">{{ joke.title }}</h4>
                 <p class="card-text">{{ joke.content.substring(0,joke.content.length/2)}}...</p>
                 <a [routerLink]="['/jokes/',joke.ref]" class="btn btn-primary">View Detail</a>
+                <a href="https://github.com/happierday/happierday" class="btn btn-primary">GitHub</a>
             </div>
         </div>
     </div>
