@@ -3,57 +3,60 @@
         {{ message }}
     </div>
 </div>
-
-<div class="card" style="width: 50rem;">
-    <div class="card-header bg-transparent">
-        <h2>{{ jokeDetail?.title }}</h2>
-    </div>
-    <div class="card-body">
-        <p class="card-text">{{ jokeDetail?.content }}</p>
-    </div>
-    <div class="card-footer bg-transparent">
-        <div *ngIf="!authStatus">
-            <button [disabled] = "likeOrDislike" type="button" class="btn btn-primary" (click) = "likes()">Like: {{ jokeDetail?.likes.length }}</button>
-            <button [disabled] = "likeOrDislike" type="button" class="btn btn-danger" (click) = "dislikes()">Dislike: {{ jokeDetail?.dislikes.length }}</button>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#newComment" aria-expanded="false" aria-controls="collapseExample">
-                New Comment
-            </button>
-            <div id ="creator">
-                <h6>Created By <a routerLink="/profile/{{ jokeDetail?.username }}">{{ jokeDetail?.username }}</a></h6>
+<div class = "container">
+    <div class="card">
+        <div class="card-header bg-transparent">
+            <h2>{{ jokeDetail?.title }}</h2>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ jokeDetail?.content }}</p>
+        </div>
+        <div class="card-footer bg-transparent">
+            <div *ngIf="!authStatus">
+                <button type="button" class="btn btn-primary" (click) = "likes()">Like: {{ jokeDetail?.likes.length }}</button>
+                <button type="button" class="btn btn-danger" (click) = "dislikes()">Dislike: {{ jokeDetail?.dislikes.length }}</button>
+                <div id ="creator">
+                    <h6>Created By <a routerLink="/profile/{{ jokeDetail?.username }}">{{ jokeDetail?.username }}</a></h6>
+                </div>
+            </div>
+            <div *ngIf="authStatus">
+                <button type="button" class="btn btn-primary">Edit</button>
+                <button type="button" class="btn btn-danger">Delete</button>
             </div>
         </div>
-        <div *ngIf="authStatus">
-            <button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </div>
-        <div class="collapse" id="newComment">
-            <div class = "jumbotron">
-                <div *ngIf="loggedIn">
-                    <form [formGroup] = "commentForm" (submit) = "creteNewComment()">
-                        <div class="form-group">
-                            <label for="comment">comment</label>
-                            <input type="text" class="form-control"  formControlName = "comment">
-                            <textarea class="form-control"rows="5" formControlName = "content"></textarea>
-                            <div *ngIf="commentForm.controls.comment.errors && commentForm.controls.comment.dirty" class="alert alert-danger">
-                                <div *ngIf="commentForm.controls.comment.errors?.required">
-                                    comment is required.
-                                </div>
-                                <div *ngIf="commentForm.controls.comment.errors?.minlength && !commentForm.controls.comment.errors?.required">
-                                    comment should have at least 5 characters.
-                                </div>
-                                <div *ngIf="commentForm.controls.comment.errors?.maxlength && !commentForm.controls.comment.errors?.required">
-                                    comment should not exceed 1000 characters long.
-                                </div>
-                            </div>
+    </div>
+    <div class = "jumbotron">
+        <div *ngIf="authService.loggedIn()">
+            <form [formGroup] = "commentForm" (submit) = "creteNewComment()">
+                <div class="form-group">
+                    <label for="comment">comment</label>
+                    <textarea class="form-control" rows="5" formControlName = "comment"></textarea>
+                    <div *ngIf="commentForm.controls.comment.errors && commentForm.controls.comment.dirty" class="alert alert-danger">
+                        <div *ngIf="commentForm.controls.comment.errors?.required">
+                            comment is required.
                         </div>
-                        <p>Character Left: {{1000-postForm.get('comment').value.length}}</p>
-                        <button type="submit" [disabled] = "commentForm.controls.comment.errors || !commentForm.controls.comment.dirty"class="btn btn-success">Post</button>
-                    </form>
+                        <div *ngIf="commentForm.controls.comment.errors?.minlength && !commentForm.controls.comment.errors?.required">
+                            comment should have at least 5 characters.
+                        </div>
+                        <div *ngIf="commentForm.controls.comment.errors?.maxlength && !commentForm.controls.comment.errors?.required">
+                            comment should not exceed 1000 characters long.
+                        </div>
+                    </div>
                 </div>
-                <div *ngIf="!loggedIn">
-                    Oops. It seems like you didn't log in.
-                </div>
-            </div>
-        </div>  
+                <p>Character Left: {{1000-commentForm.get('comment').value.length}}</p>
+                <button type="submit" [disabled] = "commentForm.controls.comment.errors || !commentForm.controls.comment.dirty" class="btn btn-success">Post</button>
+            </form>
+        </div>
+        <div *ngIf="!authService.loggedIn()">
+            Oops. It seems like you didn't log in.
+        </div>
     </div>
+    <div *ngFor = "let comment of jokeDetail?.comments">
+        <div  class = "comment">
+            <h4>{{comment.comment}}</h4>
+        </div>
+    </div>
+    
 </div>
+
+

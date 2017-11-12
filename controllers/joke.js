@@ -44,6 +44,39 @@ router.get('/:title',(req,res) => {
     }
 })
 
-
+router.post('/:ref', (req,res) =>{
+    if(!req.params.ref){
+        res.json({success:false, message: 'Must provide title'});
+    }else{
+        if(!req.body.username){
+            res.json({success:false, message: 'Must provide username'});
+        }else{
+            if(!req.body.comment){
+                res.json({success:false, message: 'Must provide comment'});
+            }else{
+                Joke.findOne({ref: req.params.ref}, (err,joke) =>{
+                    if(err){
+                        res.json({success: false, message: err});
+                    }else{
+                        if(joke){
+                            joke.comments.push({
+                                username: req.body.username,
+                                comment: req.body.comment
+                            })
+                            joke.save((err) => {
+                                if(err){
+                                    res.json({success: false, message: err});
+                                }
+                                res.send(joke);
+                            })
+                        }else{
+                            res.json({success: false, message: "Joke not found!"});
+                        }
+                    }
+                })
+            }
+        }
+    }
+})
 
 module.exports = router;

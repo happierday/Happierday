@@ -378,7 +378,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/joke-detail/joke-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class = \"row  show-hide-message\">\r\n    <div [ngClass] =\"messageClass\">\r\n        {{ message }}\r\n    </div>\r\n</div>\r\n\r\n<div class=\"card\" style=\"width: 50rem;\">\r\n    <div class=\"card-header bg-transparent\">\r\n        <h2>{{ jokeDetail?.title }}</h2>\r\n    </div>\r\n    <div class=\"card-body\">\r\n        <p class=\"card-text\">{{ jokeDetail?.content }}</p>\r\n    </div>\r\n    <div class=\"card-footer bg-transparent\">\r\n        <div *ngIf=\"!authStatus\">\r\n            <button [disabled] = \"likeOrDislike\" type=\"button\" class=\"btn btn-primary\" (click) = \"likes()\">Like: {{ jokeDetail?.likes.length }}</button>\r\n            <button [disabled] = \"likeOrDislike\" type=\"button\" class=\"btn btn-danger\" (click) = \"dislikes()\">Dislike: {{ jokeDetail?.dislikes.length }}</button>\r\n            <button class=\"btn btn-primary\" type=\"button\" data-toggle=\"collapse\" data-target=\"#newComment\" aria-expanded=\"false\" aria-controls=\"collapseExample\">\r\n                New Comment\r\n            </button>\r\n            <div id =\"creator\">\r\n                <h6>Created By <a routerLink=\"/profile/{{ jokeDetail?.username }}\">{{ jokeDetail?.username }}</a></h6>\r\n            </div>\r\n        </div>\r\n        <div *ngIf=\"authStatus\">\r\n            <button type=\"button\" class=\"btn btn-primary\">Edit</button>\r\n            <button type=\"button\" class=\"btn btn-danger\">Delete</button>\r\n        </div>\r\n        <div class=\"collapse\" id=\"newComment\">\r\n            <div class = \"jumbotron\">\r\n                <div *ngIf=\"loggedIn\">\r\n                    <form [formGroup] = \"commentForm\" (submit) = \"creteNewComment()\">\r\n                        <div class=\"form-group\">\r\n                            <label for=\"comment\">comment</label>\r\n                            <input type=\"text\" class=\"form-control\"  formControlName = \"comment\">\r\n                            <textarea class=\"form-control\"rows=\"5\" formControlName = \"content\"></textarea>\r\n                            <div *ngIf=\"commentForm.controls.comment.errors && commentForm.controls.comment.dirty\" class=\"alert alert-danger\">\r\n                                <div *ngIf=\"commentForm.controls.comment.errors?.required\">\r\n                                    comment is required.\r\n                                </div>\r\n                                <div *ngIf=\"commentForm.controls.comment.errors?.minlength && !commentForm.controls.comment.errors?.required\">\r\n                                    comment should have at least 5 characters.\r\n                                </div>\r\n                                <div *ngIf=\"commentForm.controls.comment.errors?.maxlength && !commentForm.controls.comment.errors?.required\">\r\n                                    comment should not exceed 1000 characters long.\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <p>Character Left: {{1000-postForm.get('comment').value.length}}</p>\r\n                        <button type=\"submit\" [disabled] = \"commentForm.controls.comment.errors || !commentForm.controls.comment.dirty\"class=\"btn btn-success\">Post</button>\r\n                    </form>\r\n                </div>\r\n                <div *ngIf=\"!loggedIn\">\r\n                    Oops. It seems like you didn't log in.\r\n                </div>\r\n            </div>\r\n        </div>  \r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class = \"row  show-hide-message\">\r\n    <div [ngClass] =\"messageClass\">\r\n        {{ message }}\r\n    </div>\r\n</div>\r\n<div class = \"container\">\r\n    <div class=\"card\">\r\n        <div class=\"card-header bg-transparent\">\r\n            <h2>{{ jokeDetail?.title }}</h2>\r\n        </div>\r\n        <div class=\"card-body\">\r\n            <p class=\"card-text\">{{ jokeDetail?.content }}</p>\r\n        </div>\r\n        <div class=\"card-footer bg-transparent\">\r\n            <div *ngIf=\"!authStatus\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click) = \"likes()\">Like: {{ jokeDetail?.likes.length }}</button>\r\n                <button type=\"button\" class=\"btn btn-danger\" (click) = \"dislikes()\">Dislike: {{ jokeDetail?.dislikes.length }}</button>\r\n                <div id =\"creator\">\r\n                    <h6>Created By <a routerLink=\"/profile/{{ jokeDetail?.username }}\">{{ jokeDetail?.username }}</a></h6>\r\n                </div>\r\n            </div>\r\n            <div *ngIf=\"authStatus\">\r\n                <button type=\"button\" class=\"btn btn-primary\">Edit</button>\r\n                <button type=\"button\" class=\"btn btn-danger\">Delete</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class = \"jumbotron\">\r\n        <div *ngIf=\"authService.loggedIn()\">\r\n            <form [formGroup] = \"commentForm\" (submit) = \"creteNewComment()\">\r\n                <div class=\"form-group\">\r\n                    <label for=\"comment\">comment</label>\r\n                    <textarea class=\"form-control\" rows=\"5\" formControlName = \"comment\"></textarea>\r\n                    <div *ngIf=\"commentForm.controls.comment.errors && commentForm.controls.comment.dirty\" class=\"alert alert-danger\">\r\n                        <div *ngIf=\"commentForm.controls.comment.errors?.required\">\r\n                            comment is required.\r\n                        </div>\r\n                        <div *ngIf=\"commentForm.controls.comment.errors?.minlength && !commentForm.controls.comment.errors?.required\">\r\n                            comment should have at least 5 characters.\r\n                        </div>\r\n                        <div *ngIf=\"commentForm.controls.comment.errors?.maxlength && !commentForm.controls.comment.errors?.required\">\r\n                            comment should not exceed 1000 characters long.\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n                <p>Character Left: {{1000-commentForm.get('comment').value.length}}</p>\r\n                <button type=\"submit\" [disabled] = \"commentForm.controls.comment.errors || !commentForm.controls.comment.dirty\" class=\"btn btn-success\">Post</button>\r\n            </form>\r\n        </div>\r\n        <div *ngIf=\"!authService.loggedIn()\">\r\n            Oops. It seems like you didn't log in.\r\n        </div>\r\n    </div>\r\n    <div *ngFor = \"let comment of jokeDetail?.comments\">\r\n        <div  class = \"comment\">\r\n            <h4>{{comment.comment}}</h4>\r\n        </div>\r\n    </div>\r\n    \r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -389,8 +389,9 @@ module.exports = "<div class = \"row  show-hide-message\">\r\n    <div [ngClass]
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JokeDetailComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__ = __webpack_require__("../../../../../src/app/services/jokes/jokes.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_auth_service__ = __webpack_require__("../../../../../src/app/services/auth/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -404,39 +405,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var JokeDetailComponent = (function () {
-    function JokeDetailComponent(router, jokeService, formBuilder) {
-        var _this = this;
+    function JokeDetailComponent(router, jokesService, formBuilder, authService) {
         this.router = router;
-        this.jokeService = jokeService;
+        this.jokesService = jokesService;
         this.formBuilder = formBuilder;
-        this.likeOrDislike = false;
-        this.jokeService.getJokeDetail(this.router.url.split('/')[2]).subscribe(function (res) {
-            _this.response = JSON.parse(JSON.stringify(res));
-            _this.jokeDetail = _this.response.joke;
-            _this.authStatus = _this.response.auth;
-        });
+        this.authService = authService;
         this.createForm();
     }
     JokeDetailComponent.prototype.createForm = function () {
         this.commentForm = this.formBuilder.group({
-            comment: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].compose([
-                    __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].required,
-                    __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].minLength(5),
-                    __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].maxLength(1000)
+            comment: ['', __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* Validators */].compose([
+                    __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* Validators */].required,
+                    __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* Validators */].minLength(5),
+                    __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* Validators */].maxLength(1000)
                 ])]
         });
     };
     JokeDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.username = localStorage.getItem('username');
+        this.jokesService.getJokeDetail(this.router.url.split('/')[2]).subscribe(function (res) {
+            _this.response = JSON.parse(JSON.stringify(res));
+            _this.jokeDetail = _this.response.joke;
+            _this.authStatus = _this.response.auth;
+        });
+    };
+    JokeDetailComponent.prototype.creteNewComment = function () {
+        var _this = this;
+        var commentDetail = {
+            comment: this.commentForm.get('comment').value,
+            username: this.username,
+        };
+        this.jokesService.sendPost(commentDetail, this.jokeDetail.ref).subscribe(function (res) {
+            _this.jokeDetail = JSON.parse(JSON.stringify(res));
+        });
     };
     JokeDetailComponent.prototype.likes = function () {
         var _this = this;
         if (this.username) {
-            this.jokeService.likeEvent(this.jokeDetail.ref, this.username).subscribe(function (res) {
+            this.jokesService.likeEvent(this.jokeDetail.ref, this.username).subscribe(function (res) {
                 _this.response = JSON.parse(JSON.stringify(res));
                 _this.jokeDetail = _this.response;
-                _this.likeOrDislike = true;
             });
         }
         else {
@@ -450,10 +461,9 @@ var JokeDetailComponent = (function () {
     JokeDetailComponent.prototype.dislikes = function () {
         var _this = this;
         if (this.username) {
-            this.jokeService.dislikeEvent(this.jokeDetail.ref, this.username).subscribe(function (res) {
+            this.jokesService.dislikeEvent(this.jokeDetail.ref, this.username).subscribe(function (res) {
                 _this.response = JSON.parse(JSON.stringify(res));
                 _this.jokeDetail = _this.response;
-                _this.likeOrDislike = true;
             });
         }
         else {
@@ -472,10 +482,10 @@ JokeDetailComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/joke-detail/joke-detail.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/joke-detail/joke-detail.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__["a" /* JokesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__["a" /* JokesService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__["a" /* JokesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_jokes_jokes_service__["a" /* JokesService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__services_auth_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_auth_auth_service__["a" /* AuthService */]) === "function" && _d || Object])
 ], JokeDetailComponent);
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 //# sourceMappingURL=joke-detail.component.js.map
 
 /***/ }),
@@ -1321,6 +1331,9 @@ var JokesService = (function () {
         else {
             return this.http.get(this.authService.serverDomain + '/jokes/' + title);
         }
+    };
+    JokesService.prototype.sendPost = function (commentDetail, ref) {
+        return this.http.post(this.authService.serverDomain + '/jokes/' + ref, commentDetail);
     };
     JokesService.prototype.likeEvent = function (title, username) {
         if (this.authService.loggedIn()) {
