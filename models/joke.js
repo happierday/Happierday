@@ -58,6 +58,10 @@ const jokeSchema = new Schema({
         userId: String,
         username: String   
     }],
+    comments:[{
+        username: String,
+        comment: String
+    }],
     createdAt: { type: Date, required: true }
 });
 

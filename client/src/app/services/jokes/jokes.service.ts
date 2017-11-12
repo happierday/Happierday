@@ -23,6 +23,10 @@ export class JokesService {
         }   
     }
 
+    sendPost(commentDetail,ref){
+        return this.http.post(this.authService.serverDomain + '/jokes/' + ref, commentDetail);
+    }
+
     likeEvent(title,username){
         if(this.authService.loggedIn()){
             this.authService.authUser();
