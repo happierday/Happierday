@@ -1,7 +1,6 @@
 <div class="jumbotron">
     <h1>Happierday</h1>
     <p class="lead">A place where you can share your happiness with other</p>
-    <a href="https://github.com/happierday/happierday" class="btn btn-primary">GitHub</a>
     <p *ngIf="!authService.loggedIn()">
         <a class="btn btn-lg btn-success" routerLink="/signup" role="button">Get started today</a>
     </p>
