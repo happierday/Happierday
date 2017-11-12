@@ -28,7 +28,6 @@ export class VerifyComponent implements OnInit {
                 localStorage.removeItem('hash');
                 this.messageClass = 'alert alert-success';
                 setTimeout(() => {
-                    location.reload();
                     this.router.navigate(['/home']);                    
                 },2000);
             }else{
