@@ -21,7 +21,7 @@ export class JokeDetailComponent implements OnInit {
         private router: Router,
         private jokesService: JokesService,
         private formBuilder: FormBuilder,
-        private authService: AuthService
+        public authService: AuthService
     ) {
         this.createForm();
     }

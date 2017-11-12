@@ -20,7 +20,7 @@ export class NewPostComponent implements OnInit {
     constructor(
         private router: Router,
         private formBuilder: FormBuilder,
-        private authService: AuthService,
+        public authService: AuthService,
         private newPostService: NewPostService
     ) { this.createForm() }
     

@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
     constructor(
         private jokesService: JokesService,
-        private authService: AuthService
+        public authService: AuthService
     ) { }
     
     ngOnInit() {
