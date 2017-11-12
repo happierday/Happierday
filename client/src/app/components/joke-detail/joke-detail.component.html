@@ -25,38 +25,7 @@
             </div>
         </div>
     </div>
-    <div class = "jumbotron">
-        <div *ngIf="authService.loggedIn()">
-            <form [formGroup] = "commentForm" (submit) = "creteNewComment()">
-                <div class="form-group">
-                    <label for="comment">comment</label>
-                    <textarea class="form-control" rows="5" formControlName = "comment"></textarea>
-                    <div *ngIf="commentForm.controls.comment.errors && commentForm.controls.comment.dirty" class="alert alert-danger">
-                        <div *ngIf="commentForm.controls.comment.errors?.required">
-                            comment is required.
-                        </div>
-                        <div *ngIf="commentForm.controls.comment.errors?.minlength && !commentForm.controls.comment.errors?.required">
-                            comment should have at least 5 characters.
-                        </div>
-                        <div *ngIf="commentForm.controls.comment.errors?.maxlength && !commentForm.controls.comment.errors?.required">
-                            comment should not exceed 1000 characters long.
-                        </div>
-                    </div>
-                </div>
-                <p>Character Left: {{1000-commentForm.get('comment').value.length}}</p>
-                <button type="submit" [disabled] = "commentForm.controls.comment.errors || !commentForm.controls.comment.dirty" class="btn btn-success">Post</button>
-            </form>
-        </div>
-        <div *ngIf="!authService.loggedIn()">
-            Oops. It seems like you didn't log in.
-        </div>
-    </div>
-    <div *ngFor = "let comment of jokeDetail?.comments">
-        <div  class = "comment">
-            <h4>{{comment.comment}}</h4>
-        </div>
-    </div>
-    
+    <app-comment></app-comment>
 </div>
 
 

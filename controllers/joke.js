@@ -1,4 +1,5 @@
 const Joke = require('../models/joke');
+const Comment = require('../models/comment');
 const express = require('express');
 const User = require('../models/userProfile');
 const auth = require('./auth');
@@ -8,11 +9,11 @@ const router = express.Router();
 
 auth(router);
 
-router.get('/:title',(req,res) => {
-    if(!req.params.title){
+router.get('/:ref',(req,res) => {
+    if(!req.params.ref){
         res.json({success: false, message: 'No title provided!'});
     }else{
-        Joke.findOne({ref:req.params.title}, (err, joke) => {
+        Joke.findOne({ref:req.params.ref}, (err, joke) => {
             if(err){
                 res.json({success: false, message: err});
             }else{
@@ -44,6 +45,24 @@ router.get('/:title',(req,res) => {
     }
 })
 
+router.get('/comments/:ref',(req,res) => {
+    if(!req.params.ref){
+        res.json({success:false, message: 'Must provide title'});
+    }else{
+        Comment.findOne({ref: req.params.ref}, (err,comments) =>{
+            if(err){
+                res.json({success: false, message: err});
+            }else{
+                if(comments){
+                    res.send(comments);
+                }else{
+                    res.json({success:false, message: "Be the first one to comment on this joke!"})
+                }
+            }
+        })
+    }
+})
+
 router.post('/:ref', (req,res) =>{
     if(!req.params.ref){
         res.json({success:false, message: 'Must provide title'});
@@ -54,23 +73,35 @@ router.post('/:ref', (req,res) =>{
             if(!req.body.comment){
                 res.json({success:false, message: 'Must provide comment'});
             }else{
-                Joke.findOne({ref: req.params.ref}, (err,joke) =>{
+                Comment.findOne({ref: req.params.ref}, (err,comments) =>{
                     if(err){
                         res.json({success: false, message: err});
                     }else{
-                        if(joke){
-                            joke.comments.push({
+                        if(comments){
+                            comments.comments.push({
                                 username: req.body.username,
                                 comment: req.body.comment
                             })
-                            joke.save((err) => {
+                            comments.save((err) => {
                                 if(err){
                                     res.json({success: false, message: err});
                                 }
-                                res.send(joke);
+                                res.send(comments);
                             })
                         }else{
-                            res.json({success: false, message: "Joke not found!"});
+                            const comment = new Comment({
+                                ref: req.params.ref,
+                                comments:[{
+                                    username: req.body.username,
+                                    comment: req.body.comment
+                                }]
+                            })
+                            comment.save((err) => {
+                                if(err){
+                                    res.json({success: false, message: err});
+                                }
+                                res.send(comment);
+                            })
                         }
                     }
                 })

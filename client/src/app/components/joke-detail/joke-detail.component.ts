@@ -13,6 +13,7 @@ export class JokeDetailComponent implements OnInit {
     username;
     jokeDetail;
     response;
+    comments;
     authStatus;
     commentForm;
     messageClass;
@@ -23,17 +24,6 @@ export class JokeDetailComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authService: AuthService
     ) {
-        this.createForm();
-    }
-
-    createForm(){
-        this.commentForm = this.formBuilder.group({
-            comment: ['',Validators.compose([
-                Validators.required,
-                Validators.minLength(5),
-                Validators.maxLength(1000)
-            ])]
-        })
     }
     
     ngOnInit() {
@@ -42,17 +32,6 @@ export class JokeDetailComponent implements OnInit {
             this.response = JSON.parse(JSON.stringify(res));
             this.jokeDetail = this.response.joke;
             this.authStatus = this.response.auth;
-        })
-    }
-
-    creteNewComment(){
-        const commentDetail = {
-            comment: this.commentForm.get('comment').value,
-            username: this.username,
-        }
-        
-        this.jokesService.sendPost(commentDetail,this.jokeDetail.ref).subscribe((res) => {
-            this.jokeDetail = JSON.parse(JSON.stringify(res));
         })
     }
 

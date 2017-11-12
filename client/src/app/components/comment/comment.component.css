@@ -1,0 +1,10 @@
+.commentForm{
+    margin-top: 0.5em;
+}
+
+.comment{
+    margin-top: 0.5em;
+    border: hidden;
+    border-width: 0.1em;
+    margin-bottom: 0.5em;
+}

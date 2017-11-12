@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
@@ -57,10 +56,6 @@ const jokeSchema = new Schema({
     dislikes: [{
         userId: String,
         username: String   
-    }],
-    comments:[{
-        username: String,
-        comment: String
     }],
     createdAt: { type: Date, required: true }
 });
