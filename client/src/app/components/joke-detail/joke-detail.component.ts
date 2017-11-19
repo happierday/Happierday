@@ -15,17 +15,34 @@ export class JokeDetailComponent implements OnInit {
     response;
     comments;
     authStatus;
-    commentForm;
+    editForm;
     messageClass;
     message;
+    editStatus = false;
     constructor(
         private router: Router,
         private jokesService: JokesService,
         private formBuilder: FormBuilder,
         private authService: AuthService
     ) {
+        this.createEditForm();
     }
     
+    createEditForm(){
+        this.editForm = this.formBuilder.group({
+            title: ['',Validators.compose([
+                Validators.required,
+                Validators.minLength(5),
+                Validators.maxLength(50)
+            ])],
+            content: ['',Validators.compose([
+                Validators.required,
+                Validators.minLength(50),
+                Validators.maxLength(5000)
+            ])]
+        })
+    }
+
     ngOnInit() {
         this.username = localStorage.getItem('username');
         this.jokesService.getJokeDetail(this.router.url.split('/')[2]).subscribe((res) => {
@@ -33,6 +50,51 @@ export class JokeDetailComponent implements OnInit {
             this.jokeDetail = this.response.joke;
             this.authStatus = this.response.auth;
         })
+    }
+
+    editPost(){
+        const post = {
+            title: this.editForm.get('title').value,
+            content: this.editForm.get('content').value,
+            username: localStorage.getItem('username')
+        }
+        this.jokesService.editPost(post,this.jokeDetail.ref).subscribe((res) =>{
+            this.response = JSON.parse(JSON.stringify(res));
+            this.message = this.response.message;
+            this.jokeDetail = this.response.joke;
+            if(this.response.success){
+                this.messageClass = "alert alert-success";
+            }else{
+                this.messageClass = "alert alert-danger";
+            }
+            setTimeout(() => {
+                this.router.navigate(['/jokes/'+this.jokeDetail.ref]);
+            }, 2000);
+        })
+    }
+
+    edit(){
+        console.log(this.editForm.getError())
+        this.editStatus = true;
+    }
+
+    deletePost(){
+        this.jokesService.deletePost(this.jokeDetail.ref).subscribe((res) => {
+            this.response = JSON.parse(JSON.stringify(res));
+            this.message = this.response.message;
+            if(this.response.success){
+                this.messageClass = "alert alert-success";
+            }else{
+                this.messageClass = "alert alert-danger";
+            }
+            setTimeout(() => {
+                this.router.navigate(['/home']);
+            }, 2000);
+        })
+    }
+
+    goBack(){
+        this.editStatus = false;
     }
 
     likes(){

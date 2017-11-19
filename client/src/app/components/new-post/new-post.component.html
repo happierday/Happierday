@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <p>Character Left: {{5000-postForm.get('content').value.length}}</p>
-                <button type="submit" [disabled] = "postForm.controls.content.errors || (!postForm.controls.content.dirty && !postForm.controls.title.dirty) "class="btn btn-success">Post</button>
+                <button type="submit" [disabled] = "!postForm.valid || (!postForm.controls.content.dirty && !postForm.controls.title.dirty) "class="btn btn-success">Post</button>
             </form>
         </div>
         <div *ngIf="!authService.loggedIn()" id = "message">

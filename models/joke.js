@@ -57,7 +57,8 @@ const jokeSchema = new Schema({
         userId: String,
         username: String   
     }],
-    createdAt: { type: Date, required: true }
+    createdAt: { type: Date, required: true },
+    editAt: { type: Date, required: true }
 });
 
 

@@ -29,6 +29,7 @@
                     </div>
                 </div>
             </div>
+            <p>{{!userForm.valid}}</p>
             <button [disabled] = "!userForm.valid || logedIn" type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>

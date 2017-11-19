@@ -30,6 +30,14 @@ export class JokesService {
     sendPost(commentDetail,ref){
         return this.http.post(this.authService.serverDomain + '/jokes/' + ref, commentDetail);
     }
+    
+    editPost(post,ref){
+        return this.http.post(this.authService.serverDomain + "/jokes/edit/" + ref, post);
+    }
+
+    deletePost(ref){
+        return this.http.delete(this.authService.serverDomain + "/jokes/delete/" + ref);
+    }
 
     likeEvent(title,username){
         if(this.authService.loggedIn()){

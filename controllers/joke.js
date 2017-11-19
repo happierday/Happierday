@@ -63,6 +63,51 @@ router.get('/comments/:ref',(req,res) => {
     }
 })
 
+router.delete('/delete/:ref',(req,res) =>{
+    if(!req.params.ref){
+        res.json({success:false, message: 'Must provide title'});
+    }else{
+         Joke.findOne({ref: req.params.ref}).remove().exec();
+         res.json({success:true, message: 'Joke Removed'});
+    }
+})
+
+router.post('/edit/:ref',(req,res) =>{
+    if(!req.params.ref){
+        res.json({success:false, message: 'Must provide url title'});
+    }else{
+        if(!req.body.username){
+            res.json({success: false, message: 'Please Log In First'})
+        }else{
+            Joke.findOne({ref: req.params.ref},(err,joke) =>{
+                if(err){
+                    res.json({success: false, message: err});
+                }else{
+                    if(joke){
+                        if(req.body.title){
+                            joke.title = req.body.title;
+                            joke.ref = req.body.title.replace(/[\W_]+/g,"-");
+                        }
+                        if(req.body.content){
+                            joke.content = req.body.content;
+                        }
+                        joke.editAt = new Date();
+                        joke.save((err) =>{
+                            if(err){
+                                res.json({success:false, message: err});
+                            }else{
+                                res.json({success:true, message: 'Posted',joke:joke});
+                            }
+                        })
+                    }else{
+                        res.json({success: false, message: 'No joke is found!'})
+                    }
+                }
+            })
+        }
+    }
+})
+
 router.post('/:ref', (req,res) =>{
     if(!req.params.ref){
         res.json({success:false, message: 'Must provide title'});
@@ -78,7 +123,7 @@ router.post('/:ref', (req,res) =>{
                         res.json({success: false, message: err});
                     }else{
                         if(comments){
-                            comments.comments.push({
+                            comments.comments.unshift({
                                 username: req.body.username,
                                 comment: req.body.comment
                             })
