@@ -28,6 +28,7 @@ export class AuthService {
             this.username = localStorage.getItem('username');
             return true;
         }else{
+            localStorage.clear();
             this.username = undefined;
             return false;
         }

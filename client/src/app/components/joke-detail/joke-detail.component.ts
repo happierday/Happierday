@@ -13,47 +13,96 @@ export class JokeDetailComponent implements OnInit {
     username;
     jokeDetail;
     response;
+    comments;
     authStatus;
-    commentForm;
+    editForm;
     messageClass;
     message;
+    editStatus = false;
+    createdAt;
+    editedAt;
     constructor(
         private router: Router,
         private jokesService: JokesService,
         private formBuilder: FormBuilder,
         public authService: AuthService
     ) {
-        this.createForm();
+        this.createEditForm();
     }
-
-    createForm(){
-        this.commentForm = this.formBuilder.group({
-            comment: ['',Validators.compose([
+    
+    createEditForm(){
+        this.editForm = this.formBuilder.group({
+            title: ['',Validators.compose([
                 Validators.required,
                 Validators.minLength(5),
-                Validators.maxLength(1000)
+                Validators.maxLength(50)
+            ])],
+            content: ['',Validators.compose([
+                Validators.required,
+                Validators.minLength(50),
+                Validators.maxLength(5000)
             ])]
         })
     }
-    
+
     ngOnInit() {
         this.username = localStorage.getItem('username');
         this.jokesService.getJokeDetail(this.router.url.split('/')[2]).subscribe((res) => {
             this.response = JSON.parse(JSON.stringify(res));
             this.jokeDetail = this.response.joke;
+            this.createdAt = this.jokeDetail.createdAt.substring(0,10) + " " +this.jokeDetail.createdAt.substring(11,16);
+            if(this.jokeDetail.editedAt){
+                this.editedAt = this.jokeDetail.editedAt.substring(0,10) + " " +this.jokeDetail.editedAt.substring(11,16);
+            }
             this.authStatus = this.response.auth;
         })
     }
 
-    creteNewComment(){
-        const commentDetail = {
-            comment: this.commentForm.get('comment').value,
-            username: this.username,
+    editPost(){
+        const post = {
+            title: this.editForm.get('title').value,
+            content: this.editForm.get('content').value,
+            username: localStorage.getItem('username')
         }
-        
-        this.jokesService.sendPost(commentDetail,this.jokeDetail.ref).subscribe((res) => {
-            this.jokeDetail = JSON.parse(JSON.stringify(res));
+        this.jokesService.editPost(post,this.jokeDetail.ref).subscribe((res) =>{
+            this.response = JSON.parse(JSON.stringify(res));
+            this.message = this.response.message;
+            this.jokeDetail = this.response.joke;
+            if(this.response.success){
+                this.messageClass = "alert alert-success";
+            }else{
+                this.messageClass = "alert alert-danger";
+            }
+            setTimeout(() => {
+                location.reload();
+                this.router.navigate(['/jokes/'+this.jokeDetail.ref]);
+            }, 2000);
         })
+    }
+
+    edit(){
+        this.editForm.get('title').setValue(this.jokeDetail.title);
+        this.editForm.get('content').setValue(this.jokeDetail.content);
+        this.editStatus = true;
+    }
+
+    deletePost(){
+        this.jokesService.deletePost(this.jokeDetail.ref).subscribe((res) => {
+            this.response = JSON.parse(JSON.stringify(res));
+            this.message = this.response.message;
+            if(this.response.success){
+                this.messageClass = "alert alert-success";
+            }else{
+                this.messageClass = "alert alert-danger";
+            }
+            setTimeout(() => {
+                this.router.navigate(['/home']);
+            }, 2000);
+        })
+    }
+
+    goBack(){
+        this.editStatus = false;
     }
 
     likes(){

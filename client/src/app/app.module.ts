@@ -23,6 +23,7 @@ import { NonauthService } from './services/auth/nonauth.service';
 import { JokesService } from './services/jokes/jokes.service';
 import { ProfileService } from './services/profile/profile.service';
 import { NewPostService } from './services/newPost/new-post.service';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { NewPostService } from './services/newPost/new-post.service';
         ProfileComponent,
         VerifyComponent,
         JokeDetailComponent,
-        NewPostComponent
+        NewPostComponent,
+        CommentComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,22 @@
+.commentForm{
+    margin-top: 0.5em;
+}
+
+.comment{
+    margin-top: 5%;
+    font-size: 18px;
+}
+
+.commentBody{
+    padding-left: 2em;
+    border-style: outset;
+}
+
+.commentFooter{
+    float: right;
+}
+
+.button{
+    font-size: 15px;
+    background-color:transparent;
+}

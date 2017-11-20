@@ -4,7 +4,7 @@ import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class JokesService {
-
+    comments;
     constructor(
         private authService: AuthService,
         private http: HttpClient
@@ -23,8 +23,20 @@ export class JokesService {
         }   
     }
 
+    getComments(title){
+        return this.http.get(this.authService.serverDomain + '/jokes/comments/' + title);
+    }
+
     sendPost(commentDetail,ref){
         return this.http.post(this.authService.serverDomain + '/jokes/' + ref, commentDetail);
+    }
+    
+    editPost(post,ref){
+        return this.http.put(this.authService.serverDomain + "/jokes/edit/" + ref, post);
+    }
+
+    deletePost(ref){
+        return this.http.delete(this.authService.serverDomain + "/jokes/delete/" + ref);
     }
 
     likeEvent(title,username){

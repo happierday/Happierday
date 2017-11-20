@@ -13,7 +13,7 @@ router.get('/',(req,res) => {
                 res.json({success: false, message: 'No jokes found!'});
             }
         }
-    })
+    }).sort({_id:-1})
 })
 
 module.exports = router;

@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.jokesService.getJokes().subscribe((res) => {
             this.jokes = JSON.parse(JSON.stringify(res));
+            //console.log(this.jokes)
         })
     }
 
