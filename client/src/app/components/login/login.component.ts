@@ -11,6 +11,16 @@ import 'rxjs/add/operator/pairwise';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
+    animations: [
+        trigger('login', [
+            state('void', style({width:'100%'})),
+            state('*', style({width:'100%'})),
+            transition(':enter', [  // before 2.1: transition('void => *', [
+              style({transform: 'translateY(75%)'}),
+              animate('0.5s ease-in-out', style({transform: 'translateY(0%) rotateX(45deg)'})),
+            ]),
+        ])
+    ]
 })
 export class LoginComponent implements OnInit {
     userForm: FormGroup;
