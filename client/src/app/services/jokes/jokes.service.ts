@@ -32,7 +32,7 @@ export class JokesService {
     }
     
     editPost(post,ref){
-        return this.http.post(this.authService.serverDomain + "/jokes/edit/" + ref, post);
+        return this.http.put(this.authService.serverDomain + "/jokes/edit/" + ref, post);
     }
 
     deletePost(ref){

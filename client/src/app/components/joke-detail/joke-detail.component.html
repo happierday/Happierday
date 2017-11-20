@@ -1,9 +1,10 @@
-<div class = "row  show-hide-message">
-    <div [ngClass] ="messageClass">
-        {{ message }}
-    </div>
-</div>
+
 <div class = "container">
+    <div class = "row  show-hide-message">
+        <div [ngClass] ="messageClass">
+            {{ message }}
+        </div>
+    </div>
     <div *ngIf = "editStatus">
         <form [formGroup] = "editForm" (submit) = "editPost()">
             <div class="form-group">
@@ -34,9 +35,8 @@
                     </div>
                 </div>
             </div>
-            <p>title {{editForm.controls.title.errors}}</p>
             <button type="button" class="btn btn-info" data-dismiss="modal" (click) = "goBack()">Cancel</button>
-            <button type="submit" [disabled] = "(!editForm.controls.title.dirty && !editForm.controls.content.dirty)"  class="btn btn-danger">Edit</button>
+            <button type="submit" [disabled] = "!editForm.valid || (!editForm.controls.title.dirty && !editForm.controls.content.dirty)"  class="btn btn-danger">Edit</button>
         </form>
     </div>
     <div *ngIf="!editStatus">
@@ -46,11 +46,15 @@
             </div>
             <div class="card-body">
                 <p class="card-text">{{ jokeDetail?.content }}</p>
+                <p class="card-text"><small class="text-muted">Created At {{createdAt}}</small></p>
+                <div *ngIf = "editedAt">
+                    <p class="card-text"><small class="text-muted">Edited At {{editedAt}}</small></p>
+                </div>
             </div>
             <div class="card-footer bg-transparent">
                 <div *ngIf="!authStatus">
-                    <button type="button" class="btn btn-primary" (click) = "likes()">Like: {{ jokeDetail?.likes.length }}</button>
-                    <button type="button" class="btn btn-danger" (click) = "dislikes()">Dislike: {{ jokeDetail?.dislikes.length }}</button>
+                    <button type="button" class="btn btn-primary" (click) = "likes()">Like: {{ jokeDetail?.likes?.length }}</button>
+                    <button type="button" class="btn btn-danger" (click) = "dislikes()">Dislike: {{ jokeDetail?.dislikes?.length }}</button>
                     <div id ="creator">
                         <h6>Created By <a routerLink="/profile/{{ jokeDetail?.username }}">{{ jokeDetail?.username }}</a></h6>
                     </div>

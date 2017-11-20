@@ -1,8 +1,14 @@
+
 .card{
     margin: auto;
+    font-size: 20px;
 }
 
 #creator{
     padding-top: 0.5em;
     float: right;
+}
+
+.show-hide-message{
+    width: 100%;
 }

@@ -29,5 +29,10 @@
     </div>
 </div>
 <div class = "comment" *ngFor="let comment of comments?.comments">
-    <p>{{comment.comment}}</p>
+    <div class = "username">
+        {{comment.username}}:
+    </div>
+    <div class = "commentBody">
+        {{comment.comment}}
+    </div>
 </div>

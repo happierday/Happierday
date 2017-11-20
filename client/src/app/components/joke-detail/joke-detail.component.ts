@@ -19,6 +19,8 @@ export class JokeDetailComponent implements OnInit {
     messageClass;
     message;
     editStatus = false;
+    createdAt;
+    editedAt;
     constructor(
         private router: Router,
         private jokesService: JokesService,
@@ -48,6 +50,10 @@ export class JokeDetailComponent implements OnInit {
         this.jokesService.getJokeDetail(this.router.url.split('/')[2]).subscribe((res) => {
             this.response = JSON.parse(JSON.stringify(res));
             this.jokeDetail = this.response.joke;
+            this.createdAt = this.jokeDetail.createdAt.substring(0,10) + " " +this.jokeDetail.createdAt.substring(11,16);
+            if(this.jokeDetail.editedAt){
+                this.editedAt = this.jokeDetail.editedAt.substring(0,10) + " " +this.jokeDetail.editedAt.substring(11,16);
+            }
             this.authStatus = this.response.auth;
         })
     }
@@ -68,13 +74,15 @@ export class JokeDetailComponent implements OnInit {
                 this.messageClass = "alert alert-danger";
             }
             setTimeout(() => {
+                location.reload();
                 this.router.navigate(['/jokes/'+this.jokeDetail.ref]);
             }, 2000);
         })
     }
 
     edit(){
-        console.log(this.editForm.getError())
+        this.editForm.get('title').setValue(this.jokeDetail.title);
+        this.editForm.get('content').setValue(this.jokeDetail.content);
         this.editStatus = true;
     }
 

@@ -72,7 +72,7 @@ router.delete('/delete/:ref',(req,res) =>{
     }
 })
 
-router.post('/edit/:ref',(req,res) =>{
+router.put('/edit/:ref',(req,res) =>{
     if(!req.params.ref){
         res.json({success:false, message: 'Must provide url title'});
     }else{
@@ -96,7 +96,7 @@ router.post('/edit/:ref',(req,res) =>{
                             if(err){
                                 res.json({success:false, message: err});
                             }else{
-                                res.json({success:true, message: 'Posted',joke:joke});
+                                res.json({success:true, message: 'Edit Successful!',joke:joke});
                             }
                         })
                     }else{
