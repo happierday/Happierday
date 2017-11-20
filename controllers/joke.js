@@ -72,6 +72,7 @@ router.delete('/delete/:ref',(req,res) =>{
     }
 })
 
+//edit
 router.put('/edit/:ref',(req,res) =>{
     if(!req.params.ref){
         res.json({success:false, message: 'Must provide url title'});
@@ -91,7 +92,7 @@ router.put('/edit/:ref',(req,res) =>{
                         if(req.body.content){
                             joke.content = req.body.content;
                         }
-                        joke.editAt = new Date();
+                        joke.editedAt = new Date();
                         joke.save((err) =>{
                             if(err){
                                 res.json({success:false, message: err});
