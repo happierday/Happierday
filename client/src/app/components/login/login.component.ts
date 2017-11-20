@@ -4,12 +4,23 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { AuthGuardService } from '../../services/auth/auth-guard.service';
 import { Location } from '@angular/common';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import 'rxjs/add/operator/pairwise';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.css'],
+    animations: [
+        trigger('login', [
+            state('void', style({width:'100%'})),
+            state('*', style({width:'100%'})),
+            transition(':enter', [  // before 2.1: transition('void => *', [
+              style({transform: 'translateY(75%)'}),
+              animate('0.5s ease-in-out', style({transform: 'translateY(0%) rotateX(45deg)'})),
+            ]),
+        ])
+    ]
 })
 export class LoginComponent implements OnInit {
     userForm: FormGroup;
@@ -18,7 +29,7 @@ export class LoginComponent implements OnInit {
     messageClass;
     response;
     url;
-    state = 3;
+    state = "void";
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -26,7 +37,6 @@ export class LoginComponent implements OnInit {
         private authGuardService: AuthGuardService,
         private location: Location
     ) { 
-        
         this.logedIn = false;
         this.createForm();
     }
@@ -39,7 +49,6 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        
     }
 
     disableForm(){

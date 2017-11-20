@@ -15,7 +15,7 @@ import { NonauthService } from './services/auth/nonauth.service';
 const appRoutes: Routes = [
     {
         path:  'home',
-        component: HomeComponent
+        component: HomeComponent,
     },
     {
         path: 'jokes/:title',
