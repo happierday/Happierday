@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.css']
+    styleUrls: ['./navbar.component.css'],
+    animations:[
+
+    ]
 })
 export class NavbarComponent {
     username;
@@ -13,7 +16,6 @@ export class NavbarComponent {
         private authService: AuthService,
         private router: Router
     ) {}
-
     onLogOut(){
         this.authService.logOut();
         this.router.navigate(['/']);

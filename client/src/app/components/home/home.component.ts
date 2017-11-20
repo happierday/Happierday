@@ -5,18 +5,17 @@ import { AuthService } from '../../services/auth/auth.service';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+    styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
+    //on div will be true, false otherwise
+    position = false;
     jokes;
-
+    state = "inactive";
     constructor(
         private jokesService: JokesService,
         private authService: AuthService
     ) { }
-
-
 
     ngOnInit() {
         this.jokesService.getJokes().subscribe((res) => {

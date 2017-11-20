@@ -8,14 +8,15 @@
         <a class="btn btn-lg btn-success" routerLink="/newpost" role="button">New Post</a>
     </p>
 </div>
-
-<div class="row">
-    <div class="col-sm-6" *ngFor="let joke of jokes">
-        <div class="card text-center">
-            <div class="card-body">
-                <h4 class="card-title">{{ joke.title }}</h4>
-                <p class="card-text">{{ joke.content.substring(0,joke.content.length/2)}}...</p>
-                <a routerLink="/jokes/{{joke.ref}}" class="btn btn-primary">View Detail</a>
+<div class= "container">
+    <div class="row">
+        <div class="col-sm-6" *ngFor="let joke of jokes">
+            <div class="card text-center">
+                <div class="card-body" >
+                    <h4 class="card-title">{{ joke.title }}</h4>
+                    <p class="card-text">{{ joke.content.substring(0,joke.content.length/2)}}...</p>
+                    <a routerLink="/jokes/{{joke.ref}}" class="btn btn-primary">View Detail</a>
+                </div>
             </div>
         </div>
     </div>

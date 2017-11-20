@@ -15,6 +15,9 @@ export class AppComponent{
     ){
         
     }
+    getDepth(outlet){
+        return outlet.activatedRouteDate['depth'];
+    }
     ngOnInit(){
         this.router.events
         .filter(e => e instanceof NavigationEnd)
