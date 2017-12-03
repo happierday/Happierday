@@ -10,35 +10,35 @@ function validatePassword (password,dbPassword){
     return bcrypt.compareSync(password,dbPassword);
 }
 
-router.post('/',(req,res)=>{
-    if(!req.body.username){
-        res.json({success:  false, message: 'You must provide a username'});
-    }else{
-        if(!req.body.password){
-            res.json({success: false, message: 'You must provide a password'});
+module.exports = (router => {
+    router.post('/',(req,res)=>{
+        if(!req.body.username){
+            res.json({success:  false, message: 'You must provide a username'});
         }else{
-            User.findOne({username: req.body.username.toLowerCase()},(err, user) => {
-                if(err){
-                    res.json({success: false, message: err});
-                }else{
-                    if(user){
-                        if(user.active){
-                            if(validatePassword(req.body.password,user.password)){
-                                const token = jwt.sign({userId: user._id},'secret',{ expiresIn: '10h' });
-                                res.json({success: true, message: 'Loged In',token:token});
+            if(!req.body.password){
+                res.json({success: false, message: 'You must provide a password'});
+            }else{
+                User.findOne({username: req.body.username.toLowerCase()},(err, user) => {
+                    if(err){
+                        res.json({success: false, message: err});
+                    }else{
+                        if(user){
+                            if(user.active){
+                                if(validatePassword(req.body.password,user.password)){
+                                    const token = jwt.sign({userId: user._id},'secret',{ expiresIn: '10h' });
+                                    res.json({success: true, message: 'Loged In',token:token});
+                                }else{
+                                    res.json({success: false, message: 'Password does not match'});
+                                }
                             }else{
-                                res.json({success: false, message: 'Password does not match'});
+                                res.json({success: false, message: 'Please verify your account first throught the link in your email inbox!'});
                             }
                         }else{
-                            res.json({success: false, message: 'Please verify your account first throught the link in your email inbox!'});
+                            res.json({success: false, message: 'No such account!'});
                         }
-                    }else{
-                        res.json({success: false, message: 'No such account!'});
                     }
-                }
-            })
+                })
+            }
         }
-    }
+    })
 })
-
-module.exports = router;
