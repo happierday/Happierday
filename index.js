@@ -17,10 +17,10 @@ mongoose.connect(config.url,(err)=>{
 })
 
 const app = express();
-const router = express.Router();
-// app.use(cors({
-//     origin: 'http://localhost:4200'
-// }));
+
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
 
 //add midware bodyParser
 app.use(bodyParser.json());
@@ -29,12 +29,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/client/dist/'));
 
 //require controllers
-controllers(router);
-
-//bound with angular
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname + '/client/dist/index.html'));
-})
+controllers(app);
 
 app.listen(port,() => {
     console.log('listening to ' + port);

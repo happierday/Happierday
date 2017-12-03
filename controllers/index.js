@@ -1,20 +1,20 @@
-const signupController = require('./signup');
-const loginController = require('./login');
-const profileController = require('./profile');
-const verifyController = require('./verify');
-const jokesController = require('./auth');
-const newPostController = require('./newPost');
-const homeController = require('./home');
-const likeController = require('./like');
-const dislikeController = require('./dislike');
+const signupController = require('./signupController');
+const loginController = require('./loginController');
+const profileController = require('./profileController');
+const verifyController = require('./verifyController');
+const jokesController = require('./jokesController');
+const newPostController = require('./newPostController');
+const homeController = require('./homeController');
+const likeController = require('./likeController');
+const dislikeController = require('./dislikeController');
 
 module.exports = (app => {
     signupController(app),
     loginController(app),
     profileController(app),
     verifyController(app),
-    jokesController(app),
     newPostController(app),
+    jokesController(app),
     homeController(app),
     likeController(app),
     dislikeController(app)

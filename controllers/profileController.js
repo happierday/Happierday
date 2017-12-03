@@ -3,7 +3,7 @@ const User = require('../models/userProfile');
 
 module.exports = (router => {
     auth(router);
-    router.get('/:username',(req,res) => {
+    router.get('/profiles/:username',(req,res) => {
         User.findOne({username:req.params.username},(err,user) =>{
             if(err){
                 res.json({success: false, message: err});

@@ -5,7 +5,7 @@ const Verify = require('../models/verify');
 const bcrypt = require('bcrypt');
 
 module.exports = (router => {
-    router.get('/:hash',(req,res) => {
+    router.get('/verify/:hash',(req,res) => {
         if(!req.params.hash){
             res.json({success: false, message: 'ID is not provided'})
         }else{
