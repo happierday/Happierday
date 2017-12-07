@@ -1,6 +1,7 @@
+const env = process.env.NODE_ENV || "development";
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('./config/config');
+const config = require('./config/config')[env];
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -18,6 +19,12 @@ mongoose.connect(config.url,(err)=>{
 
 const app = express();
 
+if(env === "development"){
+    app.use(cors({
+        origin: 'http://localhost:4200'
+    }));
+}
+
 //add midware bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -28,9 +35,11 @@ app.use(express.static(__dirname + '/client/dist/'));
 controllers(app);
 
 //bound with angular
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname + '/client/dist/index.html'));
-})
+if(env === "production"){
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname + '/client/dist/index.html'));
+    })
+}
 
 app.listen(port,() => {
     console.log('listening to ' + port);

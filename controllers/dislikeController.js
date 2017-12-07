@@ -1,6 +1,6 @@
 const Joke = require('../models/joke');
 const User = require('../models/userProfile');
-const auth = require('./auth');
+const auth = require('../services/authentication');
 const validators = require('./validators/validators');
 const validatorUtils = require('./validators/validatorUtils')
 const { param } = require('express-validator/check');
@@ -11,8 +11,7 @@ function containUser(user){
 }
 
 module.exports = ((router) => {
-    auth(router);
-    router.get('/dislike/:title/:username', 
+    router.get('/dislike/:title/:username', auth,
     [
         param('title')
         .custom(title => {

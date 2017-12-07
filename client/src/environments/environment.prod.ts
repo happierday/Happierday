@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  url: 'https://happierday.herokuapp.com',
+  useHash: true
 };

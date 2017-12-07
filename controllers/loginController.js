@@ -1,7 +1,8 @@
 const User = require('../models/userProfile');
+const env = process.env.NODE_ENV || "development";
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('../config/config');
+const config = require('../config/config')[env];
 const validators = require('./validators/validators');
 const validatorUtils = require('./validators/validatorUtils')
 const { body } = require('express-validator/check');
@@ -14,17 +15,7 @@ module.exports = (router => {
     router.post('/login',
     [
         body('password')
-        .custom(password => {
-            if(password == null){
-                throw new Error('Must provide password');
-            }else{
-                if(validators.passwordValidator(password)){
-                    return true;
-                }else{
-                    throw new Error('Password must be at least length of 8 and contain at least one uppercase letter');
-                }
-            }
-        }),
+        .isLength({min:8}),
         body('username')
         .custom(username => {
             if(username == null){

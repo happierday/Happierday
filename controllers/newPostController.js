@@ -1,14 +1,13 @@
 const Joke = require('../models/joke');
 const User = require('../models/userProfile');
-const auth = require('./auth');
+const auth = require('../services/authentication');
 const validators = require('./validators/validators');
 const validatorUtils = require('./validators/validatorUtils')
 const { body } = require('express-validator/check');
 
 module.exports = (router =>{
-    auth(router);
     
-    router.post('/newposts',
+    router.post('/newposts', auth,
     [
         body('title')
         .custom(title => {

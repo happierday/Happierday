@@ -1,13 +1,13 @@
 const Joke = require('../models/joke');
 const Comment = require('../models/comment');
 const User = require('../models/userProfile');
-const auth = require('./auth');
+const auth = require('../services/authentication');
 const validators = require('./validators/validators');
 const validatorUtils = require('./validators/validatorUtils')
 const { param, body } = require('express-validator/check');
 
 module.exports = (router => {
-    router.get('/jokes/:ref',
+    router.get('/jokes/:ref', auth,
     [
         param('ref','Must provide url title')
         .exists(),
@@ -62,10 +62,8 @@ module.exports = (router => {
             }
         })
     })
-
-    auth(router);
     
-    router.delete('/jokes/delete/:ref',
+    router.delete('/jokes/delete/:ref', auth,
     [
         param('ref','Must provide url title')
         .exists(),

@@ -1,7 +1,8 @@
 const User = require('../models/userProfile');
+const env = process.env.NODE_ENV || "development";
 const Verify = require('../models/verify');
 const jwt = require('jsonwebtoken');
-const config = require('../config/config');
+const config = require('../config/config')[env];
 const mailer = require('nodemailer');
 const crypto = require('crypto');
 const validators = require('./validators/validators');
@@ -85,10 +86,7 @@ module.exports = (router => {
                     pass: 'wu134679'
                 }
             })
-            //deployment
-            const link = 'https://happierday.herokuapp.com/#/verify/' + verify.hash;
-            // //development
-            //const link = 'http://localhost:4200/verify/' + verify.hash;
+            const link = config.link + verify.hash;
             const mailOptions  = {
                 from:'happierday',
                 to: user.email,

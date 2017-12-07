@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { environment } from '../environments/environment';
 
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -55,7 +56,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes,{useHash:true})
+        RouterModule.forRoot(appRoutes,{useHash:environment.useHash})
     ],
     exports: [
         RouterModule
