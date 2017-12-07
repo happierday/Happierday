@@ -56,7 +56,7 @@
                     <button type="button" class="btn btn-primary" (click) = "likes()">Like: {{ jokeDetail?.likes?.length }}</button>
                     <button type="button" class="btn btn-danger" (click) = "dislikes()">Dislike: {{ jokeDetail?.dislikes?.length }}</button>
                     <div id ="creator">
-                        <h6>Created By <a routerLink="/profile/{{ jokeDetail?.username }}">{{ jokeDetail?.username }}</a></h6>
+                        <h6>Created By <a routerLink="/profiles/{{ jokeDetail?.username }}">{{ jokeDetail?.username }}</a></h6>
                     </div>
                 </div>
                 <div *ngIf="authStatus">

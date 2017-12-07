@@ -9,7 +9,7 @@ module.exports = (router => {
             }else{
                 if(user){
                     if(req.decoded){
-                        if(user._id == req.decoded.userId){
+                        if(user._id === req.decoded.userId){
                             res.json({username:user.username,email:user.email,auth:true});
                         }else{
                             res.json({username:user.username,email:user.email,auth:false});

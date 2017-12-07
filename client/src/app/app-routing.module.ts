@@ -45,7 +45,7 @@ const appRoutes: Routes = [
         canActivate: [NonauthService]
     },
     {
-        path: 'profile/:username',
+        path: 'profiles/:username',
         component: ProfileComponent
     },
     {

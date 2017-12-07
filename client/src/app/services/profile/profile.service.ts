@@ -12,9 +12,9 @@ export class ProfileService {
     getProfile(username){
         if(this.authService.loggedIn()){
             this.authService.authUser();
-            return this.http.get(this.authService.serverDomain + '/profile/'+ username, {headers:this.authService.header});
+            return this.http.get(this.authService.serverDomain + '/profiles/'+ username, {headers:this.authService.header});
         }else{
-            return this.http.get(this.authService.serverDomain + '/profile/'+ username);
+            return this.http.get(this.authService.serverDomain + '/profiles/'+ username);
         }
     }
 
