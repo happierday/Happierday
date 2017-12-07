@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { JokesService } from '../../services/jokes/jokes.service';
 import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router }  from '@angular/router';
 import { FormControl, FormGroup, FormBuilder , Validators} from '@angular/forms';
+import { AuthGuardService } from '../../services/auth/auth-guard.service';
 
 @Component({
   selector: 'app-joke-detail',
@@ -25,7 +26,7 @@ export class JokeDetailComponent implements OnInit {
         private router: Router,
         private jokesService: JokesService,
         private formBuilder: FormBuilder,
-        public authService: AuthService
+        public authService: AuthService,
     ) {
         this.createEditForm();
     }

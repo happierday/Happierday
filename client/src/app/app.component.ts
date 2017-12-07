@@ -10,18 +10,17 @@ import 'rxjs/add/operator/filter';
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent{
-    state = "void"
     constructor(
         private router: Router
-    ){
-        
+    ){ 
     }
     ngOnInit(){
+        sessionStorage.clear();
         this.router.events
         .filter(e => e instanceof NavigationEnd)
         .pairwise()
         .subscribe(e => {
-            localStorage.setItem('previousRouter', JSON.parse(JSON.stringify(e[0])).url);
+            sessionStorage.setItem('url',JSON.parse(JSON.stringify(e[0])).url);
         });
     }
 }

@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     response;
     url;
     state = "void";
+    previousUrl;
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
@@ -49,6 +50,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
+        if(this.authGuardService.redirectUrl){
+            this.message = 'You must log in first to view that page!';
+            this.messageClass = 'alert alert-warning';
+            this.previousUrl = this.authGuardService.redirectUrl;
+            this.authGuardService.redirectUrl = undefined;
+        }
     }
 
     disableForm(){
@@ -75,8 +82,8 @@ export class LoginComponent implements OnInit {
                 this.messageClass = 'alert alert-success';
                 this.loginService.storeUser(this.response.token,user.username);
                 setTimeout(()=>{
-                    if(localStorage.getItem('previousRouter')){
-                        this.router.navigate([localStorage.getItem('previousRouter')]);
+                    if(sessionStorage.getItem('url')){
+                        this.router.navigate([sessionStorage.getItem('url')]);
                     }else{
                         this.router.navigate(['/home']);
                     }   
