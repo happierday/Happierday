@@ -2,7 +2,7 @@
 
 MEAN stack project
 
-demo link: https://happierday.herokuapp.com
+test version demo link: https://happierday.herokuapp.com
 
 Install node and mongodb
 
